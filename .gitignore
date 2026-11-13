@@ -1,3 +1,15 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Visual Studio / C#
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+
+# VS Code / Rider (por si alguien los usa)
+.vscode/
+.idea/
