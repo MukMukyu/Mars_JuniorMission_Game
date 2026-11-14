@@ -25,7 +25,7 @@ public partial class StatsJugadorManager : MainGUI
 
     protected override void _OnSecondPassed()
     {
-        int intervaloHambre = Jugador.correr ? 3 : 5;
+        int intervaloHambre = Jugador.correr ? 3 : 2;
 
         int consumoSed = Jugador.correr ? 2 : 1;
 

@@ -391,7 +391,7 @@ value = 100.0
 fill_mode = 3
 show_percentage = false
 
-[node name="StatsJugador" type="Control" parent="GUI" unique_id=346409462]
+[node name="StatsJugador" type="Control" parent="GUI" unique_id=346409462 node_paths=PackedStringArray("Hambre", "Sed", "Jugador")]
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
@@ -402,6 +402,9 @@ offset_right = 48.0
 offset_bottom = -12.0
 grow_vertical = 0
 script = ExtResource("7_jvowc")
+Hambre = NodePath("HBoxContainer/Hambre")
+Sed = NodePath("HBoxContainer/Sed")
+Jugador = NodePath("../../Jugador")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/StatsJugador" unique_id=307807258]
 layout_mode = 1
