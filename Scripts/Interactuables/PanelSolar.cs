@@ -21,11 +21,11 @@ public partial class PanelSolar : Area2D
 
     public override sealed void _PhysicsProcess(double delta)
     {
-        EnergiaManager.CargaActualkWh;
+        //EnergiaManager.CargaActualkWh;
     }
 
     private void _OnSecondPassed()
     {
-
+        EnergiaManager.CargaActualkWh += KiloWattsProducidos;
     }
 }
