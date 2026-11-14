@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://d2lr45jd41api" path="res://Scripts/GUI/EnergiaManager.cs" id="5_nlrjf"]
 [ext_resource type="Script" uid="uid://vryun0prwksb" path="res://Scripts/Interactuables/PanelSolar.cs" id="5_xcd0a"]
 [ext_resource type="Script" uid="uid://rp48n560ng4n" path="res://Scripts/GUI/OxigenoManager.cs" id="6_mtder"]
+[ext_resource type="Script" uid="uid://bsqmuhv20kxq5" path="res://Scripts/Interactuables/Base.cs" id="7_iisvy"]
 [ext_resource type="Script" uid="uid://crb3cbhcb2aoq" path="res://Scripts/GUI/StatsJugadorManager.cs" id="7_jvowc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8mk6v"]
@@ -191,6 +192,8 @@ sources/0 = SubResource("TileSetAtlasSource_8mk6v")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xcd0a"]
 size = Vector2(43, 24)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfhap"]
+
 [node name="Gamemanager" type="Node2D" unique_id=1323146543 node_paths=PackedStringArray("TimerDia")]
 texture_filter = 3
 script = ExtResource("1_j8up3")
@@ -230,6 +233,7 @@ position = Vector2(328, 88)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("5_xcd0a")
+Funciona = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Paneles/PanelSolar" unique_id=693014744]
 position = Vector2(27, 0)
@@ -275,30 +279,15 @@ position = Vector2(0, 12)
 scale = Vector2(1.32, 1)
 shape = SubResource("RectangleShape2D_xcd0a")
 
-[node name="PanelSolar3" type="Area2D" parent="Paneles" unique_id=1056094659]
-position = Vector2(520, 88)
-collision_layer = 4
-collision_mask = 2
-script = ExtResource("5_xcd0a")
+[node name="Base" type="Node2D" parent="." unique_id=1308675722]
+script = ExtResource("7_iisvy")
 
-[node name="Sprite2D" type="Sprite2D" parent="Paneles/PanelSolar3" unique_id=1146744005]
-position = Vector2(27, 0)
-texture = ExtResource("5_316s3")
-offset = Vector2(0, 15)
+[node name="Puerta Exterior" type="StaticBody2D" parent="Base" unique_id=2042931784]
+position = Vector2(248, 88)
 
-[node name="Sprite2D2" type="Sprite2D" parent="Paneles/PanelSolar3" unique_id=1594319989]
-texture = ExtResource("5_316s3")
-offset = Vector2(0, 15)
-
-[node name="Sprite2D3" type="Sprite2D" parent="Paneles/PanelSolar3" unique_id=1723502964]
-position = Vector2(-27, 0)
-texture = ExtResource("5_316s3")
-offset = Vector2(0, 15)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paneles/PanelSolar3" unique_id=1343668786]
-position = Vector2(0, 12)
-scale = Vector2(1.32, 1)
-shape = SubResource("RectangleShape2D_xcd0a")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base/Puerta Exterior" unique_id=1746115050]
+scale = Vector2(-0.70405483, 2.338271)
+shape = SubResource("RectangleShape2D_lfhap")
 
 [node name="Jugador" parent="." unique_id=1143232438 instance=ExtResource("3_nlrjf")]
 position = Vector2(147, 97)
@@ -373,7 +362,6 @@ modulate = Color(0.79180235, 0.4858219, 3.85046e-07, 1)
 layout_mode = 1
 offset_right = 13.0
 offset_bottom = 72.0
-step = 1.0
 value = 100.0
 fill_mode = 3
 show_percentage = false
@@ -399,7 +387,6 @@ anchor_right = 1.0
 offset_left = -11.0
 offset_bottom = 62.0
 grow_horizontal = 0
-step = 1.0
 value = 100.0
 fill_mode = 3
 show_percentage = false
@@ -442,5 +429,31 @@ step = 1.0
 value = 100.0
 fill_mode = 3
 show_percentage = false
+
+[node name="Control" type="Control" parent="GUI" unique_id=568087499]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control" unique_id=1471436857]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Control/VBoxContainer" unique_id=1646377798]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/Control/VBoxContainer/HBoxContainer" unique_id=401262743]
+layout_mode = 2
+text = "Temp(k):"
+
+[node name="Label2" type="Label" parent="GUI/Control/VBoxContainer/HBoxContainer" unique_id=1622882150]
+layout_mode = 2
+text = "10"
 
 [connection signal="timeout" from="TimerDia" to="." method="Reloj"]

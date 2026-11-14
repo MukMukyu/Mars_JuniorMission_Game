@@ -9,6 +9,10 @@ public partial class GameManager : Node
     // [----- CONSTANTS -----]
 
     public const double MarsDay_InSeconds = 885.6;
+    public const double MarsDay_InHours = 24.6;
+
+    // Horas de juego que pasan en cada tick de OnSecondPassed (1 s real = 1/36 h de Marte).
+    public const double MarsHours_PerSecond = MarsDay_InHours / MarsDay_InSeconds;
 
     // [----- ACTIONS & SIGNALS -----]
 

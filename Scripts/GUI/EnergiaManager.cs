@@ -27,14 +27,11 @@ public partial class EnergiaManager : MainGUI
 
     protected override void _OnSecondPassed()
     {
-        if (gameManager.SecondsCounter % 1 == 0)
-        {
-            if (CargaActualkWh <= 0)
-                return;
+        if (CargaActualkWh <= 0)
+            return;
 
-            BarraEnergia.Value = CargaActualkWh;
+        BarraEnergia.Value = CargaActualkWh;
 
             //GD.Print("Oxígeno: " + oxigenoActual);
-        }
     }
 }
