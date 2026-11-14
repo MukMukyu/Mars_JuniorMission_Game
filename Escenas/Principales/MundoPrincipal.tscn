@@ -287,7 +287,7 @@ value = 99.0
 fill_mode = 2
 show_percentage = false
 
-[node name="Oxigeno" type="Control" parent="GUI" unique_id=1165306069]
+[node name="Oxigeno" type="Control" parent="GUI" unique_id=1165306069 node_paths=PackedStringArray("BarraOxigeno")]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -298,6 +298,7 @@ offset_right = -8.0
 offset_bottom = 48.0
 grow_horizontal = 0
 script = ExtResource("6_mtder")
+BarraOxigeno = NodePath("ProgressBar")
 
 [node name="ProgressBar" type="ProgressBar" parent="GUI/Oxigeno" unique_id=1948963857]
 layout_mode = 1
