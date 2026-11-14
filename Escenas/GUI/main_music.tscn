@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dh7hacmlmxrd0"]
+
+[ext_resource type="Script" uid="uid://kueyqb603jo0" path="res://escenes/main_music.gd" id="1_436no"]
+[ext_resource type="AudioStream" uid="uid://b4cepyckc47xb" path="res://song/271866__mrpork__era-of-space.ogg" id="2_3kalr"]
+
+[node name="MainMusic" type="Node" unique_id=1082976567]
+script = ExtResource("1_436no")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=232538247]
+stream = ExtResource("2_3kalr")
+autoplay = true

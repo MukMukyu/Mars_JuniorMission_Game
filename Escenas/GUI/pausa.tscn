@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://blyevdfb722fb"]
+
+[ext_resource type="Script" uid="uid://b15m6b7wic763" path="res://script/pausa.gd" id="1_in51k"]
+
+[node name="Control" type="Control" unique_id=533400735]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_in51k")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2060614701]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -122.875
+offset_right = 110.0
+offset_bottom = 122.875
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=2049476542]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 24
+
+[node name="Continue" type="Button" parent="PanelContainer/VBoxContainer" unique_id=77149704]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "CONTINUAR"
+
+[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1428425718]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "REINICIAR"
+
+[node name="Menu" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1131974549]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "MENÚ PRINCIPAL"
+
+[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=881083491]
+layout_mode = 2
+theme_override_constants/line_spacing = 20
+theme_override_font_sizes/font_size = 24
+text = "SALIR"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
