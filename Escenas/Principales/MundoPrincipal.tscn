@@ -186,13 +186,10 @@ sources/0 = SubResource("TileSetAtlasSource_8mk6v")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xreih"]
 size = Vector2(43, 47)
 
-[node name="Gamemanager" type="Node2D" unique_id=1323146543 node_paths=PackedStringArray("TimerDia", "Energia", "Oxigeno", "StatsPersonaje")]
+[node name="Gamemanager" type="Node2D" unique_id=1323146543 node_paths=PackedStringArray("TimerDia")]
 texture_filter = 3
 script = ExtResource("1_j8up3")
 TimerDia = NodePath("TimerDia")
-Energia = NodePath("GUI/Energia")
-Oxigeno = NodePath("GUI/Oxigeno")
-StatsPersonaje = NodePath("GUI/StatsJugador")
 
 [node name="TimerDia" type="Timer" parent="." unique_id=745108372]
 wait_time = 0.1
@@ -219,7 +216,7 @@ position = Vector2(147, 97)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=365572645]
 
-[node name="Hora" type="Control" parent="GUI" unique_id=1859471741]
+[node name="Hora" type="Control" parent="GUI" unique_id=1859471741 node_paths=PackedStringArray("horas", "minutos", "segundos")]
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -231,6 +228,9 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("5_mtder")
+horas = NodePath("HBoxContainer/Hora")
+minutos = NodePath("HBoxContainer/Minutos")
+segundos = NodePath("HBoxContainer/Segundos")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/Hora" unique_id=1496266545]
 layout_mode = 1

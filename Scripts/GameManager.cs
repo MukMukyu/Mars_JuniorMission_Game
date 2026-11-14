@@ -16,30 +16,31 @@ public partial class GameManager : Node
 
     // [----- CONSTANTS -----]
     // How many seconds does a day in mars have reduced (88560sec/100) for game purposes
-    public const double MarsDay_Seconds = 885.6;
+    public const float MarsDay_Seconds = 885.6f;
 
     // [----- ACTIONS & SIGNALS -----]
     public event Action OnSecondPassed;
     public event Action OnDayPassed;
 
     // [----- OTHERS -----]
-    private double secondsCounter = 0.0;
-    public double SecondsCounter 
+    public int SecondsCounter = 0;
+    private float millisecondsCounter = 0;
+    public float MillisecondsCounter
     {
-        get => secondsCounter;
+        get => millisecondsCounter;
         set
         {
             if (value == MarsDay_Seconds)       // When a day pass
             {
                 OnDayPassed?.Invoke();
-                secondsCounter = 0.0f;
+                millisecondsCounter = 0;
             }
-            else if ((value % 1.0) == 0.0)      // When a second pass
+            else if ((value % 1) >= 0 && (value % 1) < 0.1f)      // When a second pass
             {
                 OnSecondPassed?.Invoke();
-                secondsCounter = value;
+                millisecondsCounter = value;
             }
-            else { secondsCounter = value; }    // Other
+            else { millisecondsCounter = value; }    // Other
         } 
     }
 
@@ -54,6 +55,7 @@ public partial class GameManager : Node
 
     private void Reloj()
     {
-        SecondsCounter += TimerDia.WaitTime;
+        SecondsCounter += 0.1f;
+        GD.Print(SecondsCounter);
     }
 }

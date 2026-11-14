@@ -18,10 +18,11 @@ public partial class HoraManager : MainGUI
 
     protected override void _OnSecondPassed()
     {
+        GD.Print(gameManager.SecondsCounter);
         SegundoCounter += 1;
         if (SegundoCounter == 60)
         {
-            SegundoCounter += 1;
+            SegundoCounter = 0;
             segundos.Text = "00";
         }
         else if (SegundoCounter < 10)
