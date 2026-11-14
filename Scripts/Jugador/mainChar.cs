@@ -1,0 +1,41 @@
+using Godot;
+using System;
+
+public partial class mainChar : CharacterBody2D
+{
+
+    
+    /*
+     1. Movimiento izq der y saltar.
+    */
+
+    private float velocidad = 300.0f;
+    private float salto = -400.0f;
+    private float gravedad = 371.0f; //gravedad marte
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (!IsOnFloor())
+        {
+            Vector2 vel = Velocity;
+            vel.Y += gravedad * (float)delta;
+            Velocity = vel;
+        }
+
+        if (Input.IsActionJustPressed("Saltar") && IsOnFloor())
+        {
+            Vector2 vel = Velocity;
+            vel.Y = salto;
+            Velocity = vel;
+        }
+
+        float mov = Input.GetAxis("Izq", "Der");
+
+        Vector2 movVel = Velocity;
+        movVel.X = mov * velocidad;
+        Velocity = movVel;
+
+        MoveAndSlide();
+    }
+
+}
