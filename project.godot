@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Mars_JuniorMission_Game"
-config/features=PackedStringArray("4.7", "GL Compatibility")
+config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
@@ -22,6 +22,33 @@ window/stretch/aspect="expand"
 [dotnet]
 
 project/assembly_name="Mars_JuniorMission_Game"
+
+[input]
+
+Izq={
+"deadzone": 0.2,
+"events": []
+}
+Der={
+"deadzone": 0.2,
+"events": []
+}
+Arriba={
+"deadzone": 0.2,
+"events": []
+}
+Abajo={
+"deadzone": 0.2,
+"events": []
+}
+ClickIzq={
+"deadzone": 0.2,
+"events": []
+}
+ClickDer={
+"deadzone": 0.2,
+"events": []
+}
 
 [physics]
 
