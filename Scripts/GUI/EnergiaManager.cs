@@ -10,6 +10,8 @@ public partial class EnergiaManager : MainGUI
 
     public override void _Ready()
     {
+        base._Ready();
+
         BarraEnergia.MaxValue = EnergiaMaximo;
         BarraEnergia.Value = EnergiaActual;
     }

@@ -11,13 +11,14 @@ public partial class OxigenoManager : MainGUI
 
     public override void _Ready()
     {
+        base._Ready();
+
         BarraOxigeno.MaxValue = OxigenoMaximo;
         BarraOxigeno.Value = oxigenoActual;
     }
 
     protected override void _OnSecondPassed()
     {
-
         if (gameManager.SecondsCounter % 2 == 0)
         {
             if (oxigenoActual <= 0)
@@ -27,7 +28,7 @@ public partial class OxigenoManager : MainGUI
 
             BarraOxigeno.Value = oxigenoActual;
 
-            //GD.Print("Oxígeno: " + oxigenoActual);
+            GD.Print("Oxígeno: " + oxigenoActual);
         }
     }
 }

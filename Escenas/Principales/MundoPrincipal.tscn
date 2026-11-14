@@ -289,7 +289,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "00"
 
-[node name="Energia" type="Control" parent="GUI" unique_id=1013968259]
+[node name="Energia" type="Control" parent="GUI" unique_id=1013968259 node_paths=PackedStringArray("BarraEnergia")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 8.0
@@ -297,6 +297,7 @@ offset_top = 8.0
 offset_right = 48.0
 offset_bottom = 48.0
 script = ExtResource("5_nlrjf")
+BarraEnergia = NodePath("ProgressBar")
 
 [node name="ProgressBar" type="ProgressBar" parent="GUI/Energia" unique_id=368340696]
 modulate = Color(0.79180235, 0.4858219, 3.85046e-07, 1)
@@ -304,7 +305,7 @@ layout_mode = 1
 offset_right = 13.0
 offset_bottom = 72.0
 step = 1.0
-value = 99.0
+value = 100.0
 fill_mode = 3
 show_percentage = false
 
@@ -372,7 +373,5 @@ step = 1.0
 value = 100.0
 fill_mode = 3
 show_percentage = false
-
-[node name="Parallax2D" type="Parallax2D" parent="GUI" unique_id=1471482028]
 
 [connection signal="timeout" from="TimerDia" to="." method="Reloj"]
