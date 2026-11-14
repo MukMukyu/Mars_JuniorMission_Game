@@ -11,12 +11,8 @@ public partial class OxigenoManager : MainGUI
 
     public override void _Ready()
     {
-        base._Ready();
-
         BarraOxigeno.MaxValue = OxigenoMaximo;
         BarraOxigeno.Value = oxigenoActual;
-
-        _InitSignals();
     }
 
     protected override void _OnSecondPassed()
@@ -33,10 +29,5 @@ public partial class OxigenoManager : MainGUI
 
             //GD.Print("Oxígeno: " + oxigenoActual);
         }
-    }
-
-    protected override void _OnDayPassed()
-    {
-
     }
 }

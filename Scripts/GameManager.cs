@@ -5,14 +5,10 @@ using System;
 public partial class GameManager : Node
 {
     [Export] private Timer TimerDia;
-    [Export] private HoraManager HoraManager;
-    [Export] private EnergiaManager EnergiaManager;
-    [Export] private OxigenoManager OxigenoManager;
-    [Export] private StatsJugadorManager StatsPersonajeManager;
-
+    
     // [----- CONSTANTS -----]
 
-    public const double MarsDay_Seconds = 885.6;
+    public const double MarsDay_InSeconds = 885.6;
 
     // [----- ACTIONS & SIGNALS -----]
 
@@ -26,6 +22,7 @@ public partial class GameManager : Node
     private double elapsedTime = 0.0;
 
 
+
     private void Reloj()
     {
 
@@ -37,13 +34,15 @@ public partial class GameManager : Node
         if (newSec > SecondsCounter)
         {
             SecondsCounter = newSec;
+            //GD.Print(SecondsCounter);
             OnSecondPassed?.Invoke();
         }
 
-        if (elapsedTime >= MarsDay_Seconds)
+        if (elapsedTime >= MarsDay_InSeconds)
         {
             elapsedTime = 0.0;
             SecondsCounter = 0;
+            //GD.Print(SecondsCounter);
 
             OnDayPassed?.Invoke();
         }

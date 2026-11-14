@@ -10,12 +10,7 @@ public abstract partial class MainGUI : Control
     public override void _Ready()
     {
         gameManager = GetNode<GameManager>(GetTree().CurrentScene.GetPath());
-    }
 
-
-
-    public void _InitSignals()
-    {
         gameManager.OnSecondPassed += _OnSecondPassed;
         gameManager.OnDayPassed += _OnDayPassed;
     }

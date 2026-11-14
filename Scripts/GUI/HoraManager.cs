@@ -3,35 +3,77 @@ using System;
 
 public partial class HoraManager : MainGUI
 {
-    [Export]
-    private Label horas;
-    [Export]
-    private Label minutos;
-    [Export]
-    private Label segundos;
+    [Export] private Label horas;
+    [Export] private Label minutos;
+    [Export] private Label segundos;
 
-    private int SegundoCounter = 0;
-    private int MinutoCounter = 0;
-    private int HoraCounter = 0;
-
-
-
-    protected override void _OnSecondPassed()
+    private int segundoCounter = 0;
+    private int SegundoCounter
     {
-        GD.Print(gameManager.SecondsCounter);
-        SegundoCounter += 1;
-        if (SegundoCounter == 60)
+        get => segundoCounter;
+        set
         {
-            SegundoCounter = 0;
-            segundos.Text = "00";
+            if ((value % 60) == 0)
+            {
+                MinutoCounter += 1;
+                segundoCounter = 0;
+            }
+            else
+            {
+                segundoCounter = value;
+            }
         }
-        else if (SegundoCounter < 10)
+    }
+
+    private int minutoCounter = 0;
+    private int MinutoCounter
+    {
+        get => minutoCounter;
+        set
         {
-            segundos.Text = "0" + SegundoCounter.ToString();
+            if ((value % 60) == 0)
+            {
+                HoraCounter += 1;
+                minutoCounter = 0;
+            }
+            else
+            {
+                minutoCounter = value;
+            }
         }
-        else
+    }
+
+    private int HoraCounter { get; set; } = 0;
+
+
+
+    protected override sealed void _OnSecondPassed()
+    {
+        if (gameManager.SecondsCounter % 1 == 0)
         {
-            segundos.Text = SegundoCounter.ToString();
+            SegundoCounter++;
+            if (segundoCounter < 10)
+                segundos.Text = "0" + SegundoCounter.ToString();
+            else
+                segundos.Text = SegundoCounter.ToString();
+
+            if (MinutoCounter < 10)
+                minutos.Text = "0" + MinutoCounter.ToString();
+            else
+                minutos.Text = MinutoCounter.ToString();
+
+            if (HoraCounter < 10)
+                horas.Text = "0" + HoraCounter.ToString();
+            else
+                horas.Text = MinutoCounter.ToString();
         }
+
+        GD.Print(SegundoCounter);
+    }
+
+    protected override sealed void _OnDayPassed()
+    {
+        HoraCounter = 0;
+        horas.Text = HoraCounter.ToString();
     }
 }
