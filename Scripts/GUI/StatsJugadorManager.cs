@@ -5,6 +5,7 @@ public partial class StatsJugadorManager : MainGUI
 {
     [Export] private ProgressBar Hambre;
     [Export] private ProgressBar Sed;
+    [Export] private mainChar Jugador;
 
     private const int HambreMaximo = 100;
     private const int SedMaximo = 100;
@@ -24,20 +25,27 @@ public partial class StatsJugadorManager : MainGUI
 
     protected override void _OnSecondPassed()
     {
-        if (gameManager.SecondsCounter % 5 == 0)
+        int intervaloHambre = Jugador.correr ? 3 : 5;
+
+        int consumoSed = Jugador.correr ? 2 : 1;
+
+        if (gameManager.SecondsCounter % intervaloHambre == 0)
         {
-            if (hambreActual <= 0)
-                return;
-            else if (sedActual <= 0)
-                return;
-            
+            if (hambreActual > 0)
+            {
+                hambreActual--;
+                Hambre.Value = hambreActual;
+            }
+        }
 
-            hambreActual--;
-            sedActual--;
+        if (sedActual > 0)
+        {
+            sedActual -= consumoSed;
 
-            Hambre.Value = hambreActual;
+            if (sedActual < 0)
+                sedActual = 0;
+
             Sed.Value = sedActual;
-
         }
     }
 }
