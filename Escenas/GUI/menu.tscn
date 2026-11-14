@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://dlhdkwymxnwsf"]
+
+[ext_resource type="Texture2D" uid="uid://48brl03q4gd" path="res://images/menu.jpg" id="1_80itx"]
+[ext_resource type="Script" uid="uid://cstjce2gmqcrg" path="res://script/menu.gd" id="1_htjmv"]
+[ext_resource type="FontFile" uid="uid://df1iux1a60jsw" path="res://font/Butterfly_Kids,Lexend_Deca,Saira,Sour_Gummy/Saira/static/Saira-Black.ttf" id="3_7x7e6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6f1sr"]
+bg_color = Color(0.5686275, 0.72156864, 0.7647059, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.46666667, 0.7490196, 0.7607843, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7p1re"]
+bg_color = Color(0.5686275, 0.72156864, 0.7647059, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.46666667, 0.7490196, 0.7607843, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htjmv"]
+bg_color = Color(0.5686275, 0.72156864, 0.7647059, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.46666667, 0.7490196, 0.7607843, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Menu" type="Control" unique_id=891220662]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_htjmv")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=181719820]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16203249, 0.1524317, 0.15182382, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect" unique_id=208793692]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_80itx")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=1211230890]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -219.6875
+offset_top = -194.0
+offset_right = 219.6875
+offset_bottom = 194.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer" unique_id=2144506439]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_7x7e6")
+theme_override_font_sizes/font_size = 50
+text = "MENU INICIO"
+horizontal_alignment = 1
+
+[node name="Play" type="Button" parent="ColorRect/VBoxContainer" unique_id=1928935493]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.096872695, 0.09141108, 0.094969146, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_6f1sr")
+text = "JUGAR"
+
+[node name="Options" type="Button" parent="ColorRect/VBoxContainer" unique_id=959044734]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.09803922, 0.09019608, 0.09411765, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_7p1re")
+text = "OPCIONES"
+
+[node name="Quit" type="Button" parent="ColorRect/VBoxContainer" unique_id=1273580310]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.09803922, 0.09019608, 0.09411765, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_htjmv")
+text = "SALIR"
+
+[connection signal="pressed" from="ColorRect/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/Options" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
