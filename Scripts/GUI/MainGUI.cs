@@ -3,7 +3,7 @@ using System;
 
 public abstract partial class MainGUI : Control
 {
-    private GameManager gameManager;
+    protected GameManager gameManager;
 
 
 

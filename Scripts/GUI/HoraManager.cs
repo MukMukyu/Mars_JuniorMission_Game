@@ -19,7 +19,18 @@ public partial class HoraManager : MainGUI
     protected override void _OnSecondPassed()
     {
         SegundoCounter += 1;
-        if (SegundoCounter != 60) {
+        if (SegundoCounter == 60)
+        {
+            SegundoCounter += 1;
+            segundos.Text = "00";
+        }
+        else if (SegundoCounter < 10)
+        {
+            segundos.Text = "0" + SegundoCounter.ToString();
+        }
+        else
+        {
             segundos.Text = SegundoCounter.ToString();
+        }
     }
 }

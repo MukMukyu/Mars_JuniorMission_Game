@@ -2,8 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dd6i220vs8ehx" path="res://Sprites/Objetos_Interactuables/tiles.png" id="1_71v15"]
 [ext_resource type="Script" uid="uid://cukrmbxqqvnfr" path="res://Scripts/GameManager.cs" id="1_j8up3"]
-[ext_resource type="Script" uid="uid://cmnvelq3ipb70" path="res://Escenas/Principales/JugadorDePrueba_NOTOCAR_Y_NOUSARDAVID.cs" id="2_xvhxx"]
-[ext_resource type="Texture2D" uid="uid://dn2c8kfp01gsb" path="res://Sprites/Objetos_Interactuables/NPC_Guardian.png" id="3_j8up3"]
+[ext_resource type="PackedScene" uid="uid://dgrn1qd8vsj76" path="res://Escenas/Jugador/pjPrueba.tscn" id="3_nlrjf"]
 [ext_resource type="Script" uid="uid://cu2666ojldg02" path="res://Scripts/GUI/HoraManager.cs" id="5_mtder"]
 [ext_resource type="Script" uid="uid://d2lr45jd41api" path="res://Scripts/GUI/EnergiaManager.cs" id="5_nlrjf"]
 [ext_resource type="Script" uid="uid://rp48n560ng4n" path="res://Scripts/GUI/OxigenoManager.cs" id="6_mtder"]
@@ -187,8 +186,6 @@ sources/0 = SubResource("TileSetAtlasSource_8mk6v")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xreih"]
 size = Vector2(43, 47)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xreih"]
-
 [node name="Gamemanager" type="Node2D" unique_id=1323146543 node_paths=PackedStringArray("TimerDia", "Energia", "Oxigeno", "StatsPersonaje")]
 texture_filter = 3
 script = ExtResource("1_j8up3")
@@ -217,21 +214,8 @@ position = Vector2(218, 88)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Comedor" unique_id=747155293]
 shape = SubResource("RectangleShape2D_xreih")
 
-[node name="JugadorDeTest_NOFINAL" type="CharacterBody2D" parent="." unique_id=114571781]
-position = Vector2(157, 97)
-script = ExtResource("2_xvhxx")
-Vel = 150
-
-[node name="Camera2D" type="Camera2D" parent="JugadorDeTest_NOFINAL" unique_id=1161905626]
-position = Vector2(57, -35)
-
-[node name="Sprite2D" type="Sprite2D" parent="JugadorDeTest_NOFINAL" unique_id=1422895925]
-position = Vector2(1.5258789e-05, 7.6293945e-06)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_j8up3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JugadorDeTest_NOFINAL" unique_id=562256380]
-shape = SubResource("CapsuleShape2D_xreih")
+[node name="Jugador" parent="." unique_id=1143232438 instance=ExtResource("3_nlrjf")]
+position = Vector2(147, 97)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=365572645]
 
@@ -261,13 +245,28 @@ offset_right = -6.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="GUI/Hora/HBoxContainer" unique_id=2017400587]
+[node name="Hora" type="Label" parent="GUI/Hora/HBoxContainer" unique_id=1185207492]
 layout_mode = 2
-text = "00:00"
+size_flags_horizontal = 4
+text = "00"
 
-[node name="Label2" type="Label" parent="GUI/Hora/HBoxContainer" unique_id=1225218052]
+[node name="Separador" type="Label" parent="GUI/Hora/HBoxContainer" unique_id=1419598094]
 layout_mode = 2
-text = "AM"
+text = ":"
+
+[node name="Minutos" type="Label" parent="GUI/Hora/HBoxContainer" unique_id=2017400587]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "00"
+
+[node name="Separador2" type="Label" parent="GUI/Hora/HBoxContainer" unique_id=1685157243]
+layout_mode = 2
+text = ":"
+
+[node name="Segundos" type="Label" parent="GUI/Hora/HBoxContainer" unique_id=49577358]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "00"
 
 [node name="Energia" type="Control" parent="GUI" unique_id=1013968259]
 layout_mode = 3
@@ -351,5 +350,7 @@ step = 1.0
 value = 100.0
 fill_mode = 2
 show_percentage = false
+
+[node name="Parallax2D" type="Parallax2D" parent="GUI" unique_id=1471482028]
 
 [connection signal="timeout" from="TimerDia" to="." method="Reloj"]
