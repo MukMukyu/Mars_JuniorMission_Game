@@ -302,6 +302,7 @@ shape = SubResource("RectangleShape2D_xcd0a")
 
 [node name="Jugador" parent="." unique_id=1143232438 instance=ExtResource("3_nlrjf")]
 position = Vector2(147, 97)
+collision_mask = 5
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=365572645]
 
