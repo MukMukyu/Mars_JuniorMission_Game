@@ -6,11 +6,13 @@ public partial class GameManager : Node
     [Export]
     private Timer TimerDia;
     [Export]
-    private Control Energia;
+    private HoraManager HoraManager;
     [Export]
-    private Control Oxigeno;
+    private EnergiaManager EnergiaManager;
     [Export]
-    private Control StatsPersonaje;
+    private OxigenoManager OxigenoManager;
+    [Export]
+    private StatsJugadorManager StatsPersonajeManager;
 
     // [----- CONSTANTS -----]
     // How many seconds does a day in mars have reduced (88560sec/100) for game purposes
@@ -40,6 +42,15 @@ public partial class GameManager : Node
             else { secondsCounter = value; }    // Other
         } 
     }
+
+
+
+    public void WhenPlayerDied()
+    {
+
+    }
+
+
 
     private void Reloj()
     {

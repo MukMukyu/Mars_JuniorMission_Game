@@ -1,6 +1,6 @@
 using Godot;
 using System;
 
-public partial class OxigenoManager : Control
+public partial class OxigenoManager : MainGUI
 {
 }

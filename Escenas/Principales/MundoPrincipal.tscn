@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cukrmbxqqvnfr" path="res://Scripts/GameManager.cs" id="1_j8up3"]
 [ext_resource type="Script" uid="uid://cmnvelq3ipb70" path="res://Escenas/Principales/JugadorDePrueba_NOTOCAR_Y_NOUSARDAVID.cs" id="2_xvhxx"]
 [ext_resource type="Texture2D" uid="uid://dn2c8kfp01gsb" path="res://Sprites/Objetos_Interactuables/NPC_Guardian.png" id="3_j8up3"]
+[ext_resource type="Script" uid="uid://cu2666ojldg02" path="res://Scripts/GUI/HoraManager.cs" id="5_mtder"]
 [ext_resource type="Script" uid="uid://d2lr45jd41api" path="res://Scripts/GUI/EnergiaManager.cs" id="5_nlrjf"]
 [ext_resource type="Script" uid="uid://rp48n560ng4n" path="res://Scripts/GUI/OxigenoManager.cs" id="6_mtder"]
 [ext_resource type="Script" uid="uid://crb3cbhcb2aoq" path="res://Scripts/GUI/StatsJugadorManager.cs" id="7_jvowc"]
@@ -221,6 +222,9 @@ position = Vector2(157, 97)
 script = ExtResource("2_xvhxx")
 Vel = 150
 
+[node name="Camera2D" type="Camera2D" parent="JugadorDeTest_NOFINAL" unique_id=1161905626]
+position = Vector2(57, -35)
+
 [node name="Sprite2D" type="Sprite2D" parent="JugadorDeTest_NOFINAL" unique_id=1422895925]
 position = Vector2(1.5258789e-05, 7.6293945e-06)
 scale = Vector2(0.1, 0.1)
@@ -228,9 +232,6 @@ texture = ExtResource("3_j8up3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JugadorDeTest_NOFINAL" unique_id=562256380]
 shape = SubResource("CapsuleShape2D_xreih")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1161905626]
-position = Vector2(214, 62)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=365572645]
 
@@ -245,6 +246,7 @@ offset_left = -40.0
 offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+script = ExtResource("5_mtder")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/Hora" unique_id=1496266545]
 layout_mode = 1
