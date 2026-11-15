@@ -2,33 +2,43 @@
 
 [ext_resource type="Texture2D" uid="uid://c2cli2ofjnrl4" path="res://Sprites/GUI/DIY_16x16.png" id="1_0aguq"]
 [ext_resource type="LabelSettings" uid="uid://01lgrer57gf0" path="res://Recursos/Estilos/LabelTemp.tres" id="2_3dghn"]
+[ext_resource type="LabelSettings" uid="uid://k25xkkoviykg" path="res://Recursos/Estilos/LabelHora2.tres" id="3_3dghn"]
+[ext_resource type="Script" uid="uid://ds4ktvps3w1pm" path="res://Scripts/APIs/TemperaturaMCD.cs" id="4_iin8i"]
 
 [node name="Control" type="NinePatchRect" unique_id=692277768]
+texture_filter = 3
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -112.0
-offset_top = -78.0
+offset_left = -100.0
+offset_top = -34.0
 grow_horizontal = 0
 grow_vertical = 0
+offset_transform_enabled = true
 texture = ExtResource("1_0aguq")
-region_rect = Rect2(368, 240, 48, 48)
+region_rect = Rect2(368, 192, 48, 48)
 patch_margin_left = 8
 patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=253198665]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 102.0
-offset_bottom = 56.0
-theme_override_constants/separation = 12
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -12.0
+offset_right = 39.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1080822842]
 layout_mode = 2
@@ -36,13 +46,13 @@ accessibility_region = true
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1441374537]
 layout_mode = 2
-text = "Ext. Temp.:"
+text = "Exterior:"
 label_settings = ExtResource("2_3dghn")
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=993869189]
 layout_mode = 2
 text = "0 °C"
-label_settings = ExtResource("2_3dghn")
+label_settings = ExtResource("3_3dghn")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=437832590]
 layout_mode = 2
@@ -50,10 +60,14 @@ accessibility_region = true
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=392835327]
 layout_mode = 2
-text = "Int. Temp:"
+text = "Interior:"
 label_settings = ExtResource("2_3dghn")
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=2085834744]
 layout_mode = 2
 text = "0 °C"
-label_settings = ExtResource("2_3dghn")
+label_settings = ExtResource("3_3dghn")
+
+[node name="Temperatura" type="Node" parent="." unique_id=656030180 node_paths=PackedStringArray("etiqueta")]
+script = ExtResource("4_iin8i")
+etiqueta = NodePath("../VBoxContainer/HBoxContainer/Label2")

@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://bql1jos22dsuq"]
+
+[ext_resource type="Script" uid="uid://csmii67ii2h3o" path="res://Scripts/Interactuables/PuertaExterior.cs" id="1_og37h"]
+[ext_resource type="Texture2D" uid="uid://bqupm3rhdco2y" path="res://Sprites/Objetos_Interactuables/Marco_Compuerta.png" id="2_og37h"]
+[ext_resource type="Texture2D" uid="uid://rowgcfagpr23" path="res://Sprites/Objetos_Interactuables/Compuerta.png" id="3_2dane"]
+[ext_resource type="Texture2D" uid="uid://dw0grxj8xyt33" path="res://Sprites/Objetos_Interactuables/Marco_Compuerta_Frente.png" id="4_yh8pi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfhap"]
+size = Vector2(21.305155, 10.691662)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xreih"]
+size = Vector2(32, 25)
+
+[node name="Puerta Exterior" type="StaticBody2D" unique_id=642238539 node_paths=PackedStringArray("area", "hitbox", "door")]
+script = ExtResource("1_og37h")
+area = NodePath("Area2D")
+hitbox = NodePath("CollisionShape2D")
+door = NodePath("NinePatchRect")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1073369091]
+texture_filter = 3
+position = Vector2(1.9999993, -4)
+texture = ExtResource("2_og37h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=135682437]
+position = Vector2(0.3399949, -0.4999962)
+rotation = -3.1415925
+scale = Vector2(0.70405483, -2.338271)
+shape = SubResource("RectangleShape2D_lfhap")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1015570546]
+position = Vector2(-4.1600056, -1.9999981)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=956195732]
+position = Vector2(5, 1.5)
+shape = SubResource("RectangleShape2D_xreih")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=478791541]
+offset_left = -6.0
+offset_top = -8.0
+offset_right = 2.0
+offset_bottom = 12.0
+texture = ExtResource("3_2dane")
+region_rect = Rect2(8, 24, 8, 8)
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 4
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1444548362]
+z_index = 1
+texture_filter = 3
+position = Vector2(1.9999993, -4)
+texture = ExtResource("4_yh8pi")
+
+[connection signal="body_entered" from="Area2D" to="." method="_OnBodyEnter"]
+[connection signal="body_exited" from="Area2D" to="." method="_OnBodyExited"]

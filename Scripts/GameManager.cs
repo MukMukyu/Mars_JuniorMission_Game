@@ -8,7 +8,7 @@ public partial class GameManager : Node
     [Export] private Timer TimerDia;
 
     // [----- CONSTANTS -----]
-    public const double MarsHours_PerSecond = 24 / 86400;
+    public const double MarsHours_PerSecond = .24 / 864;
 
     // [----- ACTIONS & SIGNALS -----]
     public event Action OnSecondPassed;

@@ -13,7 +13,8 @@ public partial class EnergiaManager : MainGUI
     }
 
     // [----- BARRA ENERGÍA -----]
-    [Export] private ProgressBar BarraEnergia;
+    [Export] private TextureProgressBar BarraEnergia;
+    [Export] private Label Porcentaje;
 
 
 
@@ -23,6 +24,7 @@ public partial class EnergiaManager : MainGUI
 
         BarraEnergia.MaxValue = CapacidadTotalkWh;
         BarraEnergia.Value = CargaActualkWh;
+        Porcentaje.Text = Mathf.Floor((CargaActualkWh / CapacidadTotalkWh) * 100).ToString("F0") + "%";
     }
 
     protected override void _OnSecondPassed()
@@ -31,6 +33,7 @@ public partial class EnergiaManager : MainGUI
             return;
 
         BarraEnergia.Value = CargaActualkWh;
+        Porcentaje.Text = Mathf.Floor((CargaActualkWh/CapacidadTotalkWh) * 100).ToString("F0") + "%";
 
             //GD.Print("Oxígeno: " + oxigenoActual);
     }

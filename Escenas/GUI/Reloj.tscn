@@ -10,7 +10,7 @@ texture_filter = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -104.0
+offset_left = -49.0
 offset_bottom = 32.0
 grow_horizontal = 0
 texture = ExtResource("1_1cvmj")
@@ -37,15 +37,8 @@ offset_bottom = 23.0
 grow_horizontal = 2
 
 [node name="Marte" type="HBoxContainer" parent="VBoxContainer" unique_id=1639177097]
-modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 alignment = 1
-
-[node name="TipoHora" type="Label" parent="VBoxContainer/Marte" unique_id=600553380]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Time:"
-label_settings = ExtResource("3_cu2p5")
 
 [node name="Hora" type="Label" parent="VBoxContainer/Marte" unique_id=973811165]
 layout_mode = 2

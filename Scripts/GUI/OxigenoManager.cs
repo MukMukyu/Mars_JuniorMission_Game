@@ -4,7 +4,7 @@ using System;
 
 public partial class OxigenoManager : MainGUI
 {
-    [Export] private ProgressBar BarraOxigeno;
+    [Export] private TextureProgressBar BarraOxigeno;
 
     private const int OxigenoMaximo = 100;
     private int oxigenoActual = OxigenoMaximo;

@@ -1,27 +1,30 @@
 [gd_scene format=3 uid="uid://dgrn1qd8vsj76"]
 
 [ext_resource type="Script" uid="uid://dmnqn88xohbik" path="res://Scripts/Jugador/mainChar.cs" id="1_c7tht"]
-[ext_resource type="Texture2D" uid="uid://dn2c8kfp01gsb" path="res://Sprites/Objetos_Interactuables/NPC_Guardian.png" id="2_gqtlb"]
+[ext_resource type="Texture2D" uid="uid://d2y4r60nwo4q8" path="res://Sprites/Jugador/Astronauta.png" id="2_jf5a0"]
 [ext_resource type="Script" uid="uid://dgb0mht3xlrn4" path="res://Escenas/Jugador/camChar.cs" id="3_jf5a0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cha6u"]
-size = Vector2(17, 21)
+size = Vector2(5, 7)
 
 [node name="Jugador" type="CharacterBody2D" unique_id=1143232438]
+texture_filter = 3
 collision_layer = 2
-collision_mask = 0
+collision_mask = 5
 script = ExtResource("1_c7tht")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2145228762]
 position = Vector2(0, -1)
-scale = Vector2(0.08148148, 0.084374994)
-texture = ExtResource("2_gqtlb")
+texture = ExtResource("2_jf5a0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=831471662]
-position = Vector2(0.5, 0.5)
+position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_cha6u")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=212771912]
+offset = Vector2(0, -24)
+zoom = Vector2(3, 3)
+limit_enabled = false
 limit_bottom = 152
 position_smoothing_enabled = true
 script = ExtResource("3_jf5a0")

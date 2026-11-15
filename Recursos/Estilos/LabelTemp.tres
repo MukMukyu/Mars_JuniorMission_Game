@@ -1,7 +1,8 @@
 [gd_resource type="LabelSettings" format=3 uid="uid://01lgrer57gf0"]
 
-[ext_resource type="FontFile" uid="uid://da5n45oyjpxv6" path="res://Recursos/Fonts/Sta.Toasty_font.ttf" id="1_sasei"]
+[ext_resource type="FontFile" uid="uid://drccnoxm1g67f" path="res://Recursos/Fonts/ari-w9500-bold.ttf" id="1_sasei"]
 
 [resource]
 font = ExtResource("1_sasei")
-font_size = 10
+font_size = 8
+font_color = Color(0.5151245, 0.12864298, 0.28264132, 1)

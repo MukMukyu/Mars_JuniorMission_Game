@@ -2,8 +2,8 @@ using Godot;
 
 public partial class camChar : Camera2D
 {
-    [Export] public float zoomNormal = 1.0f;
-    [Export] public float zoomSalto = 0.75f;
+    [Export] public float zoomNormal = 2.0f;
+    [Export] public float zoomSalto = 1.75f;
     [Export] public float velocidadZoom = 3.0f;
 
     public override void _Ready()
