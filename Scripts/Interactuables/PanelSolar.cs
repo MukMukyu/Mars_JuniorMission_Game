@@ -58,9 +58,9 @@ public partial class PanelSolar : Area2D
 
     private void Romperse()
     {
-        randomSeed = rng.RandiRange(0, 100);
+        randomSeed = rng.RandiRange(0, 10000);
 
-        if (randomSeed < 1)
+        if (randomSeed < 1 && Funciona)
         {
             GD.Print("Se ha roto el" + Name);
             Funciona = false;

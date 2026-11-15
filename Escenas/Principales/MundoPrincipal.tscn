@@ -291,13 +291,13 @@ script = ExtResource("7_iisvy")
 [node name="Puerta Exterior" type="StaticBody2D" parent="Base" unique_id=2042931784]
 position = Vector2(248, 88)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Base/Puerta Exterior" unique_id=1746115050]
-scale = Vector2(-0.70405483, 2.338271)
-shape = SubResource("RectangleShape2D_lfhap")
-
 [node name="Sprite2D" type="Sprite2D" parent="Base/Puerta Exterior" unique_id=145037955]
 scale = Vector2(0.120000005, 0.39999998)
 texture = ExtResource("8_p8usi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base/Puerta Exterior" unique_id=1746115050]
+scale = Vector2(-0.70405483, 2.338271)
+shape = SubResource("RectangleShape2D_lfhap")
 
 [node name="SalaDeEstar" type="Sprite2D" parent="Base" unique_id=1324062236]
 modulate = Color(0.22959325, 0.22959325, 0.22959322, 1)

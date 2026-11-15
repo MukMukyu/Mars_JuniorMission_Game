@@ -10,8 +10,8 @@ public partial class GameManager : Node
 
     private const double RealMarsDay_Hours = 24.6;
     private const double RealMarsDay_Seconds = 60 * 60 * RealMarsDay_Hours;
-    public const double MarsDay_InHours = RealMarsDay_Hours / 100;
-    public const double MarsDay_InSeconds = RealMarsDay_Seconds / 100;
+    public const double MarsDay_InHours = RealMarsDay_Hours / 1000;
+    public const double MarsDay_InSeconds = RealMarsDay_Seconds / 1000;
 
     // Horas de juego que pasan en cada tick de OnSecondPassed (1 s real = 1/36 h de Marte).
     public const double MarsHours_PerSecond = MarsDay_InHours / MarsDay_InSeconds;
@@ -27,8 +27,54 @@ public partial class GameManager : Node
 
     private double elapsedTime = 0.0;
 
-    // Hora local marciana del sol actual, de 0 a 24 (un sol se divide a 0.4 "horas marcianas" por los minutos en un día).
-    public double HoraMarciana => elapsedTime / MarsDay_InSeconds * 24;
+
+    private double segundoMarciano = 0;
+    public double SegundoMarciano
+    {
+        get => segundoMarciano;
+        set
+        {
+            if (value >= 60)
+            {
+                MinutoMarciano += 1;
+                segundoMarciano = 0;
+            }
+            else
+            {
+                segundoMarciano = value;
+            }
+        }
+    }
+    private double minutoMarciano = 0;
+    public double MinutoMarciano
+    {
+        get => minutoMarciano;
+        set
+        {
+            if (value >= 60)
+            {
+                HoraMarciana += 1;
+                minutoMarciano = 0;
+            }
+            else
+            {
+                minutoMarciano = value;
+            }
+        }
+    }
+    private double horaMarciana = 0;
+    public double HoraMarciana
+    {
+        get => horaMarciana;
+        set
+        {
+            if (value >= 24)
+                horaMarciana = 0;
+            else
+                horaMarciana = value;
+        }
+    }
+    
 
 
 
@@ -36,8 +82,9 @@ public partial class GameManager : Node
     {
 
         elapsedTime += TimerDia.WaitTime;
+        SegundoMarciano += 2;
 
-        int newSec = (int)Math.Floor(elapsedTime);
+        int newSec = (int)Math.Floor(elapsedTime * 10);
 
 
         if (newSec > SecondsCounter)

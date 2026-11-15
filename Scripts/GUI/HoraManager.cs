@@ -54,8 +54,8 @@ public partial class HoraManager : MainGUI
         {
             SegundoCounter++;
 
-            horasMarte.Text = Mathf.Floor(gameManager.HoraMarciana).ToString();
-            minutosMarte.Text = Mathf.Floor(gameManager.HoraMarciana % 60).ToString();
+            horasMarte.Text = gameManager.HoraMarciana.ToString();
+            minutosMarte.Text = gameManager.MinutoMarciano.ToString();
 
             if (MinutoCounter < 10)
                 minutosTierra.Text = "0" + MinutoCounter.ToString();
