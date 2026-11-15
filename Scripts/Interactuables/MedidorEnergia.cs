@@ -77,7 +77,7 @@ public partial class MedidorEnergia : Area2D
                 tweenAnim.TweenProperty(PopOp, "position", SHOW_ANIM_POSITION, 0.3);
                 break;
             case 2:     // Animación "show_more"
-                tweenAnim.SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Expo);
+                tweenAnim.SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Expo);
                 tweenAnim.TweenProperty(PopOp, "position", SHOW_MORE_ANIM_POSITION, 0.5);
                 break;
         }

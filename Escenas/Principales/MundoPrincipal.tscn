@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://bk3ahqwhxlorn" path="res://Sprites/GUI/Icons_Weather.png" id="21_qy245"]
 [ext_resource type="Texture2D" uid="uid://u1eydbgmdo6w" path="res://Sprites/GUI/06.png" id="22_u4sb1"]
 [ext_resource type="Texture2D" uid="uid://ylr7dxml3nga" path="res://Sprites/GUI/Icons_Food.png" id="23_howib"]
+[ext_resource type="PackedScene" uid="uid://csjrgsrdhemo1" path="res://Escenas/GUI/alerts.tscn" id="27_tamks"]
 [ext_resource type="Script" uid="uid://t3eqnr85vyra" path="res://Scripts/Principales/CieloMarciano.cs" id="cielo_script"]
 [ext_resource type="Shader" uid="uid://dvpq4itcqo75w" path="res://Recursos/Shader/CieloMarciano.gdshader" id="cielo_shader"]
 
@@ -792,5 +793,29 @@ offset_bottom = 1.0
 grow_horizontal = 1
 grow_vertical = 2
 metadata/_edit_lock_ = true
+
+[node name="Alerts" type="CanvasLayer" parent="." unique_id=1136558536]
+layer = 5
+
+[node name="AlertBox" type="VBoxContainer" parent="Alerts" unique_id=581495028]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -34.0
+offset_right = 120.0
+offset_bottom = 34.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Alerts" parent="Alerts/AlertBox" unique_id=1332602644 instance=ExtResource("27_tamks")]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-120.995, 0)
+
+[node name="Alerts2" parent="Alerts/AlertBox" unique_id=587629307 instance=ExtResource("27_tamks")]
+layout_mode = 2
 
 [connection signal="timeout" from="TimerDia" to="." method="Reloj"]
