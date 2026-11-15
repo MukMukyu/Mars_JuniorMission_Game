@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://ca1jt7ah23kf1"]
+
+[ext_resource type="Texture2D" uid="uid://bcn5dxsiyxa6d" path="res://Sprites/GUI/Smartphone.png" id="1_1cvmj"]
+[ext_resource type="Script" uid="uid://cu2666ojldg02" path="res://Scripts/GUI/HoraManager.cs" id="1_m5qbm"]
+[ext_resource type="LabelSettings" uid="uid://b85gi37su8qg3" path="res://Recursos/Estilos/LabelHora.tres" id="3_cu2p5"]
+[ext_resource type="LabelSettings" uid="uid://k25xkkoviykg" path="res://Recursos/Estilos/LabelHora2.tres" id="4_pymc1"]
+
+[node name="Reloj" type="NinePatchRect" unique_id=895168722 node_paths=PackedStringArray("horasMarte", "minutosMarte")]
+texture_filter = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -104.0
+offset_bottom = 32.0
+grow_horizontal = 0
+texture = ExtResource("1_1cvmj")
+region_rect = Rect2(144, 304, 48, 80)
+patch_margin_left = 8
+patch_margin_top = 16
+patch_margin_right = 8
+patch_margin_bottom = 16
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+script = ExtResource("1_m5qbm")
+horasMarte = NodePath("VBoxContainer/Marte/Hora")
+minutosMarte = NodePath("VBoxContainer/Marte/Minutos")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=860240240]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -44.0
+offset_top = 13.0
+offset_right = 44.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="Marte" type="HBoxContainer" parent="VBoxContainer" unique_id=1639177097]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+alignment = 1
+
+[node name="TipoHora" type="Label" parent="VBoxContainer/Marte" unique_id=600553380]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Time:"
+label_settings = ExtResource("3_cu2p5")
+
+[node name="Hora" type="Label" parent="VBoxContainer/Marte" unique_id=973811165]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "00"
+label_settings = ExtResource("4_pymc1")
+
+[node name="Separador" type="Label" parent="VBoxContainer/Marte" unique_id=447745903]
+layout_mode = 2
+text = ":"
+label_settings = ExtResource("3_cu2p5")
+
+[node name="Minutos" type="Label" parent="VBoxContainer/Marte" unique_id=255927877]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "00"
+label_settings = ExtResource("4_pymc1")

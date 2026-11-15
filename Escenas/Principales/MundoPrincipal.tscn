@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dp02po1bgcxe8" path="res://Escenas/Jugador/montañas1.png" id="3_316s3"]
 [ext_resource type="PackedScene" uid="uid://dgrn1qd8vsj76" path="res://Escenas/Jugador/pjPrueba.tscn" id="3_nlrjf"]
 [ext_resource type="Texture2D" uid="uid://en1ewt1cen2v" path="res://Sprites/Objetos_Interactuables/solarPanel.png" id="5_316s3"]
-[ext_resource type="Script" uid="uid://cu2666ojldg02" path="res://Scripts/GUI/HoraManager.cs" id="5_mtder"]
 [ext_resource type="Script" uid="uid://d2lr45jd41api" path="res://Scripts/GUI/EnergiaManager.cs" id="5_nlrjf"]
 [ext_resource type="Script" uid="uid://ds4ktvps3w1pm" path="res://Scripts/APIs/TemperaturaMCD.cs" id="5_r15m3"]
 [ext_resource type="Script" uid="uid://vryun0prwksb" path="res://Scripts/Interactuables/PanelSolar.cs" id="5_xcd0a"]
@@ -14,6 +13,8 @@
 [ext_resource type="Script" uid="uid://bsqmuhv20kxq5" path="res://Scripts/Interactuables/Base.cs" id="7_iisvy"]
 [ext_resource type="Script" uid="uid://crb3cbhcb2aoq" path="res://Scripts/GUI/StatsJugadorManager.cs" id="7_jvowc"]
 [ext_resource type="Texture2D" uid="uid://cx3ylgxxpmuju" path="res://icon.svg" id="8_p8usi"]
+[ext_resource type="PackedScene" uid="uid://ca1jt7ah23kf1" path="res://Escenas/GUI/Reloj.tscn" id="11_r15m3"]
+[ext_resource type="PackedScene" uid="uid://mt8gjoi4dss4" path="res://Escenas/GUI/Temperaturas.tscn" id="15_fgxf0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8mk6v"]
 texture = ExtResource("1_71v15")
@@ -202,14 +203,13 @@ script = ExtResource("1_j8up3")
 TimerDia = NodePath("TimerDia")
 
 [node name="TimerDia" type="Timer" parent="." unique_id=745108372]
-wait_time = 0.1
 autostart = true
 
 [node name="BG" type="CanvasLayer" parent="." unique_id=699454723]
 layer = -1
-visible = false
 
 [node name="TextureRect" type="TextureRect" parent="BG" unique_id=1753240160]
+texture_filter = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -218,10 +218,13 @@ grow_vertical = 2
 texture = ExtResource("2_jvowc")
 
 [node name="Parallax2D" type="Parallax2D" parent="BG" unique_id=237972471]
+texture_filter = 3
+scroll_scale = Vector2(0.9, 0.9)
 repeat_size = Vector2(510.3, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="BG/Parallax2D" unique_id=375716691]
+position = Vector2(0, 48)
 texture = ExtResource("3_316s3")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=822791197]
@@ -230,7 +233,7 @@ tile_set = SubResource("TileSet_xreih")
 
 [node name="Temperatura" type="Node" parent="." unique_id=1911643045 node_paths=PackedStringArray("etiqueta")]
 script = ExtResource("5_r15m3")
-etiqueta = NodePath("../GUI/Temperatura/VBoxContainer/TempExterior/Label2")
+etiqueta = NodePath("../GUI/Control/VBoxContainer/HBoxContainer/Label2")
 
 [node name="Paneles" type="Node2D" parent="." unique_id=100692552]
 
@@ -323,80 +326,6 @@ collision_mask = 5
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=365572645]
 
-[node name="Hora" type="Control" parent="GUI" unique_id=1859471741 node_paths=PackedStringArray("horasTierra", "minutosTierra", "horasMarte", "minutosMarte")]
-layout_mode = 3
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("5_mtder")
-horasTierra = NodePath("VBoxContainer/Tierra/Hora")
-minutosTierra = NodePath("VBoxContainer/Tierra/Minutos")
-horasMarte = NodePath("VBoxContainer/Marte/Hora")
-minutosMarte = NodePath("VBoxContainer/Marte/Minutos")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Hora" unique_id=370126924]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -180.0
-offset_top = -25.0
-offset_bottom = 25.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="Marte" type="HBoxContainer" parent="GUI/Hora/VBoxContainer" unique_id=1299857424]
-layout_mode = 2
-
-[node name="TipoHora" type="Label" parent="GUI/Hora/VBoxContainer/Marte" unique_id=193855700]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Hora Marte:"
-
-[node name="Hora" type="Label" parent="GUI/Hora/VBoxContainer/Marte" unique_id=955409433]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "00"
-
-[node name="Separador" type="Label" parent="GUI/Hora/VBoxContainer/Marte" unique_id=1560937602]
-layout_mode = 2
-text = ":"
-
-[node name="Minutos" type="Label" parent="GUI/Hora/VBoxContainer/Marte" unique_id=553099696]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "00"
-
-[node name="Tierra" type="HBoxContainer" parent="GUI/Hora/VBoxContainer" unique_id=1496266545]
-layout_mode = 2
-
-[node name="TipoHora" type="Label" parent="GUI/Hora/VBoxContainer/Tierra" unique_id=1906433744]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Hora Tierra:"
-
-[node name="Hora" type="Label" parent="GUI/Hora/VBoxContainer/Tierra" unique_id=1185207492]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "00"
-
-[node name="Separador" type="Label" parent="GUI/Hora/VBoxContainer/Tierra" unique_id=1419598094]
-layout_mode = 2
-text = ":"
-
-[node name="Minutos" type="Label" parent="GUI/Hora/VBoxContainer/Tierra" unique_id=2017400587]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "00"
-
 [node name="Energia" type="Control" parent="GUI" unique_id=1013968259 node_paths=PackedStringArray("BarraEnergia")]
 layout_mode = 3
 anchors_preset = 0
@@ -484,46 +413,12 @@ value = 100.0
 fill_mode = 3
 show_percentage = false
 
-[node name="Temperatura" type="Control" parent="GUI" unique_id=568087499]
-layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
-grow_horizontal = 2
+[node name="Reloj" parent="GUI" unique_id=895168722 instance=ExtResource("11_r15m3")]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Temperatura" unique_id=1471436857]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -79.0
-offset_right = 79.0
-offset_bottom = 50.0
-grow_horizontal = 2
-
-[node name="TempExterior" type="HBoxContainer" parent="GUI/Temperatura/VBoxContainer" unique_id=1646377798]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="GUI/Temperatura/VBoxContainer/TempExterior" unique_id=401262743]
-layout_mode = 2
-text = "Temp exterior:"
-
-[node name="Label2" type="Label" parent="GUI/Temperatura/VBoxContainer/TempExterior" unique_id=1622882150]
-layout_mode = 2
-text = "10"
-
-[node name="TempExterior2" type="HBoxContainer" parent="GUI/Temperatura/VBoxContainer" unique_id=1238124519]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="GUI/Temperatura/VBoxContainer/TempExterior2" unique_id=42079900]
-layout_mode = 2
-text = "Temp interior:"
-
-[node name="Label2" type="Label" parent="GUI/Temperatura/VBoxContainer/TempExterior2" unique_id=1813869344]
-layout_mode = 2
-text = "20 °C"
+[node name="Control" parent="GUI" unique_id=692277768 instance=ExtResource("15_fgxf0")]
+offset_top = -53.0
+offset_bottom = 25.0
 
 [connection signal="timeout" from="TimerDia" to="." method="Reloj"]
+
+[editable path="GUI/Control"]

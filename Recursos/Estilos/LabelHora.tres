@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://b85gi37su8qg3"]
+
+[ext_resource type="FontFile" uid="uid://da5n45oyjpxv6" path="res://Recursos/Fonts/Sta.Toasty_font.ttf" id="1_iu46r"]
+
+[resource]
+font = ExtResource("1_iu46r")
+font_size = 10
+font_color = Color(0.75008386, 0.10204656, 0.4012551, 1)

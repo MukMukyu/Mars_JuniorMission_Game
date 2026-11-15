@@ -35,7 +35,6 @@ public partial class PanelSolar : Area2D
         gameManager = GetNode<GameManager>(GetTree().CurrentScene.GetPath());
 
         gameManager.OnSecondPassed += _OnSecondPassed;
-        gameManager.OnMartianSecondPassed += _OnMartianSecondPassed;
 
         rng = new RandomNumberGenerator();
     }
@@ -45,15 +44,14 @@ public partial class PanelSolar : Area2D
     public override void _ExitTree()
     {
         if (gameManager != null)
-        {
             gameManager.OnSecondPassed -= _OnSecondPassed;
-            gameManager.OnMartianSecondPassed -= _OnMartianSecondPassed;
-        }
     }
 
 
     private void _OnSecondPassed()
     {
+        PotencialPorHora = CalcularPotencialkW();
+
         // Energía (kWh) = potencia (kW) x tiempo (h) transcurrido en este tick.
         EnergiaManager.CargaActualkWh += PotenciaActualkW * (float)GameManager.MarsHours_PerSecond;
 
@@ -61,20 +59,15 @@ public partial class PanelSolar : Area2D
 
         Romperse();
     }
-    private void _OnMartianSecondPassed()
-    {
-        PotencialPorHora = CalcularPotencialkW();
-    }
-
 
     private float CalcularPotencialkW()
     {
-        double anguloPotencia = Mathf.Remap(gameManager.SegundoMarciano, 0, 86400, 0, 360);
+        double anguloPotencia = Mathf.Remap(gameManager.MinutoMarciano, 0, 86400, 0, 360);
         return (float)Math.Sin(anguloPotencia);
     }
     private void Romperse()
     {
-        randomSeed = rng.RandfRange(0f, 100f);
+        randomSeed = rng.RandfRange(0f, 10000f);
 
         if (randomSeed < 1 * ConstantesGlobales.DCI && Funciona)
         {

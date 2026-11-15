@@ -29,7 +29,7 @@ public partial class StatsJugadorManager : MainGUI
 
         int consumoSed = Jugador.correr ? 2 : 1;
 
-        if (gameManager.SecondsCounter % intervaloHambre == 0)
+        if (gameManager.MinutoMarciano % intervaloHambre == 0)
         {
             if (hambreActual > 0)
             {

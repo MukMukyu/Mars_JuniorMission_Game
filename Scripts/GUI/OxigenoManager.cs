@@ -19,7 +19,7 @@ public partial class OxigenoManager : MainGUI
 
     protected override void _OnSecondPassed()
     {
-        if (gameManager.SecondsCounter % 2 == 0)
+        if (gameManager.MinutoMarciano % 2 == 0)
         {
             if (oxigenoActual <= 0)
                 return;

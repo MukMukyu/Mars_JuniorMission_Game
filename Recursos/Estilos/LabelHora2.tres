@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://k25xkkoviykg"]
+
+[ext_resource type="FontFile" uid="uid://t2bpr1avyle0" path="res://Recursos/Fonts/HomeVideo-Bold.ttf" id="1_tn8k5"]
+
+[resource]
+font = ExtResource("1_tn8k5")
+font_size = 10
+font_color = Color(0.462372, 0.021795422, 0.21579367, 1)

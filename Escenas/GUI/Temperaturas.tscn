@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://mt8gjoi4dss4"]
+
+[ext_resource type="Texture2D" uid="uid://c2cli2ofjnrl4" path="res://Sprites/GUI/DIY_16x16.png" id="1_0aguq"]
+[ext_resource type="LabelSettings" uid="uid://01lgrer57gf0" path="res://Recursos/Estilos/LabelTemp.tres" id="2_3dghn"]
+
+[node name="Control" type="NinePatchRect" unique_id=692277768]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -112.0
+offset_top = -78.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_0aguq")
+region_rect = Rect2(368, 240, 48, 48)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=253198665]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 102.0
+offset_bottom = 56.0
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1080822842]
+layout_mode = 2
+accessibility_region = true
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1441374537]
+layout_mode = 2
+text = "Ext. Temp.:"
+label_settings = ExtResource("2_3dghn")
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=993869189]
+layout_mode = 2
+text = "0 °C"
+label_settings = ExtResource("2_3dghn")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=437832590]
+layout_mode = 2
+accessibility_region = true
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=392835327]
+layout_mode = 2
+text = "Int. Temp:"
+label_settings = ExtResource("2_3dghn")
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=2085834744]
+layout_mode = 2
+text = "0 °C"
+label_settings = ExtResource("2_3dghn")
