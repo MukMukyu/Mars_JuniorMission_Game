@@ -23,7 +23,7 @@ public partial class StatsJugadorManager : MainGUI
         Sed.Value = sedActual;
     }
 
-    protected override void _OnSecondPassed()
+    protected override void _OnMinutePassed()
     {
         int intervaloHambre = Jugador.correr ? 40 : 32;
 

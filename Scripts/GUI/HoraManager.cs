@@ -8,7 +8,7 @@ public partial class HoraManager : MainGUI
 
 
 
-    protected override sealed void _OnSecondPassed()
+    protected override sealed void _OnMinutePassed()
     {
         if (gameManager.MinutoMarciano < 10)
             minutosMarte.Text = "0" + gameManager.MinutoMarciano.ToString();

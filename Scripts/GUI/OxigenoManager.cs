@@ -17,7 +17,7 @@ public partial class OxigenoManager : MainGUI
         BarraOxigeno.Value = oxigenoActual;
     }
 
-    protected override void _OnSecondPassed()
+    protected override void _OnMinutePassed()
     {
         if (gameManager.MinutoMarciano % 2 == 0)
         {

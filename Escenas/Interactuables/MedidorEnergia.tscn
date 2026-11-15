@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://dfrnyn5gc88k"]
+
+[ext_resource type="Script" uid="uid://bqqqc4edvoyg7" path="res://Scripts/Interactuables/MedidorEnergia.cs" id="1_iidg1"]
+[ext_resource type="Texture2D" uid="uid://17shon8nqqln" path="res://Sprites/Objetos_Interactuables/Caja_Energia.png" id="1_rdv8w"]
+[ext_resource type="Texture2D" uid="uid://cmw2gasexmi41" path="res://Sprites/GUI/Premade Menus.png" id="2_g61cg"]
+[ext_resource type="LabelSettings" uid="uid://k25xkkoviykg" path="res://Recursos/Estilos/LabelHora2.tres" id="3_ibnjk"]
+[ext_resource type="LabelSettings" uid="uid://01lgrer57gf0" path="res://Recursos/Estilos/LabelTemp.tres" id="4_iidg1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lfhap"]
+radius = 13.0
+
+[node name="MedidorEnergia" type="Area2D" unique_id=246999753 node_paths=PackedStringArray("PopOp", "consumed", "produced")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_iidg1")
+PopOp = NodePath("CanvasLayer/NinePatchRect")
+consumed = NodePath("CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer/HBoxContainer/Consumed")
+produced = NodePath("CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer2/HBoxContainer2/Produced")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1382340089]
+shape = SubResource("CircleShape2D_lfhap")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1834486546]
+texture = ExtResource("1_rdv8w")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1702437755]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer" unique_id=1836082382]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -61.5
+offset_top = 5.0
+offset_right = 61.5
+offset_bottom = 106.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_g61cg")
+region_rect = Rect2(752, 656, 112, 112)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 32
+patch_margin_bottom = 24
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/NinePatchRect" unique_id=322215171]
+layout_mode = 0
+offset_left = 5.5
+offset_top = 7.0
+offset_right = 71.5
+offset_bottom = 57.0
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NinePatchRect/VBoxContainer3" unique_id=336619960]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer" unique_id=680345312]
+layout_mode = 2
+text = "CONSUMING.-"
+label_settings = ExtResource("3_ibnjk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer" unique_id=81759388]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Consumed" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer/HBoxContainer" unique_id=625439675]
+layout_mode = 2
+text = "10"
+label_settings = ExtResource("4_iidg1")
+
+[node name="Label4" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer/HBoxContainer" unique_id=895924789]
+layout_mode = 2
+text = "kWh..."
+label_settings = ExtResource("4_iidg1")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/NinePatchRect/VBoxContainer3" unique_id=1975458176]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer2" unique_id=1760271359]
+layout_mode = 2
+text = "Producing.-"
+label_settings = ExtResource("3_ibnjk")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer2" unique_id=1021685934]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Produced" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer2/HBoxContainer2" unique_id=1617501187]
+layout_mode = 2
+text = "10"
+label_settings = ExtResource("4_iidg1")
+
+[node name="Label4" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer2/HBoxContainer2" unique_id=1870013118]
+layout_mode = 2
+text = "kWh..."
+label_settings = ExtResource("4_iidg1")
+
+[connection signal="body_entered" from="." to="." method="_OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="_OnBodyExited"]

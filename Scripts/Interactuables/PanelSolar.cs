@@ -5,7 +5,7 @@ public partial class PanelSolar : Area2D
 {
     protected GameManager gameManager;
     // Potencia del panel (kW): cuánta energía da por HORA, no por tick.
-    [Export] public float KiloWattsProducidos = 20f;
+    [Export] public float KiloWattsProducidos = 40f;
 
     [Export] public float PorcentajeDePolvo;
     [Export] public bool Funciona { get; set; } = true;
@@ -14,8 +14,8 @@ public partial class PanelSolar : Area2D
     private float randomSeed;
 
 
-    private float PotencialPorHora = 0;
     // Potencia real en este momento: 0 si está roto, y baja según el polvo acumulado.
+    private float potenciaActualkW = 0;
     public float PotenciaActualkW
     {
         get
@@ -23,8 +23,15 @@ public partial class PanelSolar : Area2D
             if (!Funciona)
                 return 0f;
 
-            float limpieza = 1f - Mathf.Clamp(PorcentajeDePolvo, 0, 100) / 100f;
-            return KiloWattsProducidos * limpieza * PotencialPorHora;
+            return potenciaActualkW;
+        }
+        set
+        {
+            if (value == potenciaActualkW) return;
+
+            EnergiaManager.ProduccionActualkWh -= potenciaActualkW * (float)GameManager.MarsHours_PerSecond;
+            EnergiaManager.ProduccionActualkWh += value * (float)GameManager.MarsHours_PerSecond;
+            potenciaActualkW = value;
         }
     }
 
@@ -34,7 +41,7 @@ public partial class PanelSolar : Area2D
     {
         gameManager = GetNode<GameManager>(GetTree().CurrentScene.GetPath());
 
-        gameManager.OnSecondPassed += _OnSecondPassed;
+        gameManager.OnMinutePassed += _OnMinutePassed;
 
         rng = new RandomNumberGenerator();
     }
@@ -44,16 +51,15 @@ public partial class PanelSolar : Area2D
     public override void _ExitTree()
     {
         if (gameManager != null)
-            gameManager.OnSecondPassed -= _OnSecondPassed;
+            gameManager.OnMinutePassed -= _OnMinutePassed;
     }
 
 
-    private void _OnSecondPassed()
+    private void _OnMinutePassed()
     {
-        PotencialPorHora = CalcularPotencialkW();
+        float limpieza = 1f - Mathf.Clamp(PorcentajeDePolvo, 0, 100) / 100f;
 
-        // Energía (kWh) = potencia (kW) x tiempo (h) transcurrido en este tick.
-        EnergiaManager.CargaActualkWh += PotenciaActualkW * (float)GameManager.MarsHours_PerSecond;
+        PotenciaActualkW = CalcularPotencialkW() * KiloWattsProducidos * limpieza;
 
         Empolvarse();
 

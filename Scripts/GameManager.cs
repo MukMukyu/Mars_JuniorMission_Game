@@ -11,7 +11,7 @@ public partial class GameManager : Node
     public const double MarsHours_PerSecond = .24 / 864;
 
     // [----- ACTIONS & SIGNALS -----]
-    public event Action OnSecondPassed;
+    public event Action OnMinutePassed;
     public event Action OnDayPassed;
     public event Action OnDustStorm;
 
@@ -93,7 +93,7 @@ public partial class GameManager : Node
 
         //GD.Print(MinutoMarciano);
 
-        OnSecondPassed?.Invoke();
+        OnMinutePassed?.Invoke();
 
         if (elapsedTime >= 144)
         {

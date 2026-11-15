@@ -41,7 +41,7 @@ public partial class TemperaturaMCD : Node
     public override void _Ready()
     {
         _gameManager = GetNode<GameManager>(GetTree().CurrentScene.GetPath());
-        _gameManager.OnSecondPassed += Actualizar;
+        _gameManager.OnMinutePassed += Actualizar;
 
         if (FileAccess.FileExists(RutaCache))
         {
@@ -60,7 +60,7 @@ public partial class TemperaturaMCD : Node
 
     public override void _ExitTree()
     {
-        if (_gameManager != null) _gameManager.OnSecondPassed -= Actualizar;
+        if (_gameManager != null) _gameManager.OnMinutePassed -= Actualizar;
     }
 
     private void Actualizar()

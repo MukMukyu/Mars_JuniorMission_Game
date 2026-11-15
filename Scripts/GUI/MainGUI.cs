@@ -11,11 +11,11 @@ public abstract partial class MainGUI : Control
     {
         gameManager = GetNode<GameManager>(GetTree().CurrentScene.GetPath());
 
-        gameManager.OnSecondPassed += _OnSecondPassed;
+        gameManager.OnMinutePassed += _OnMinutePassed;
         gameManager.OnDayPassed += _OnDayPassed;
     }
 
 
-    protected abstract void _OnSecondPassed();
+    protected abstract void _OnMinutePassed();
     protected virtual void _OnDayPassed() { }
 }

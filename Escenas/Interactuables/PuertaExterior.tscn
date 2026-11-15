@@ -12,6 +12,7 @@ size = Vector2(21.305155, 10.691662)
 size = Vector2(27, 25)
 
 [node name="Puerta Exterior" type="StaticBody2D" unique_id=642238539 node_paths=PackedStringArray("area", "hitbox", "door")]
+collision_mask = 2
 script = ExtResource("1_og37h")
 area = NodePath("Area2D")
 hitbox = NodePath("CollisionShape2D")
