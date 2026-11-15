@@ -3,8 +3,8 @@ using System;
 
 public partial class StatsJugadorManager : MainGUI
 {
-    [Export] private ProgressBar Hambre;
-    [Export] private ProgressBar Sed;
+    [Export] private TextureProgressBar Hambre;
+    [Export] private TextureProgressBar Sed;
     [Export] private mainChar Jugador;
 
     private const int HambreMaximo = 100;

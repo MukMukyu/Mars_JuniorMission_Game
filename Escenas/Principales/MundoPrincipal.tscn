@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dd6i220vs8ehx" path="res://Sprites/Objetos_Interactuables/tiles.png" id="1_71v15"]
 [ext_resource type="Script" uid="uid://cukrmbxqqvnfr" path="res://Scripts/GameManager.cs" id="1_j8up3"]
 [ext_resource type="Texture2D" uid="uid://c2epl0c4bqyss" path="res://Sprites/Fondos/Starfield_03-1024x1024.png" id="2_8wvbs"]
+[ext_resource type="Shader" uid="uid://dkmnqd84xenm5" path="res://Recursos/Shader/Estrellas.gdshader" id="2_ke6h3"]
 [ext_resource type="Texture2D" uid="uid://dp02po1bgcxe8" path="res://Escenas/Jugador/montañas1.png" id="3_316s3"]
 [ext_resource type="PackedScene" uid="uid://dgrn1qd8vsj76" path="res://Escenas/Jugador/pjPrueba.tscn" id="3_nlrjf"]
 [ext_resource type="Texture2D" uid="uid://en1ewt1cen2v" path="res://Sprites/Objetos_Interactuables/solarPanel.png" id="5_316s3"]
@@ -19,6 +20,49 @@
 [ext_resource type="Texture2D" uid="uid://dnooen47ihk0h" path="res://Sprites/GUI/07.png" id="14_opod7"]
 [ext_resource type="PackedScene" uid="uid://mt8gjoi4dss4" path="res://Escenas/GUI/Temperaturas.tscn" id="15_fgxf0"]
 [ext_resource type="LabelSettings" uid="uid://k25xkkoviykg" path="res://Recursos/Estilos/LabelHora2.tres" id="15_ke6h3"]
+[ext_resource type="Texture2D" uid="uid://bk3ahqwhxlorn" path="res://Sprites/GUI/Icons_Weather.png" id="21_qy245"]
+[ext_resource type="Texture2D" uid="uid://u1eydbgmdo6w" path="res://Sprites/GUI/06.png" id="22_u4sb1"]
+[ext_resource type="Texture2D" uid="uid://ylr7dxml3nga" path="res://Sprites/GUI/Icons_Food.png" id="23_howib"]
+[ext_resource type="Script" uid="uid://t3eqnr85vyra" path="res://Scripts/Principales/CieloMarciano.cs" id="cielo_script"]
+[ext_resource type="Shader" uid="uid://dvpq4itcqo75w" path="res://Recursos/Shader/CieloMarciano.gdshader" id="cielo_shader"]
+
+[sub_resource type="Gradient" id="Gradient_i7b8a"]
+offsets = PackedFloat32Array(0, 0.19345239, 0.36607143, 0.6041667, 0.8839286, 1)
+colors = PackedColorArray(0.14, 0.091, 0.091, 1, 0.16, 0.15845333, 0.1136, 1, 0.1653, 0.18753, 0.19, 1, 0.332, 0.38639998, 0.4, 1, 0.158, 0.1727, 0.2, 1, 0.19319999, 0.1464, 0.24, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ke6h3"]
+gradient = SubResource("Gradient_i7b8a")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8wvbs"]
+shader = ExtResource("2_ke6h3")
+shader_parameter/gradientA = SubResource("GradientTexture1D_ke6h3")
+shader_parameter/horizontalMovement = 2.9802400103307036e-08
+shader_parameter/verticalMovement = 2.9802400103307036e-08
+shader_parameter/frequencyStar = 0.1
+shader_parameter/sizeStar = 100.0
+shader_parameter/brightnessStar = 2.0
+shader_parameter/shineFrequencyStar = 2.0
+shader_parameter/transparencyStar = 0.0
+shader_parameter/starIterations = 3
+shader_parameter/frequencyBgStar = 0.996
+shader_parameter/shineFrequencyBgStar = 1.0
+shader_parameter/transparencyBgStar = 0.51999998837696
+shader_parameter/colorBackground = Color(0, 0, 0, 1)
+shader_parameter/transparencyBackground = 0.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cielo"]
+shader = ExtResource("cielo_shader")
+shader_parameter/hora = 12.0
+shader_parameter/hora_amanecer = 6.0
+shader_parameter/hora_atardecer = 18.0
+shader_parameter/alfa_maximo = 1.0
+shader_parameter/color_zenit_dia = Color(0.62, 0.77, 0.58, 1)
+shader_parameter/color_horizonte_dia = Color(0.82, 0.9, 0.71, 1)
+shader_parameter/color_zenit_alba = Color(0.2, 0.28, 0.43, 1)
+shader_parameter/color_horizonte_alba = Color(0.93, 0.64, 0.46, 1)
+shader_parameter/duracion_alba = 0.55
+shader_parameter/altura_horizonte = 0.65
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8mk6v"]
 texture = ExtResource("1_71v15")
@@ -262,11 +306,39 @@ region = Rect2(0, 0, 48, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_veniq"]
 atlas = ExtResource("14_opod7")
-region = Rect2(16, 248, 16, 32)
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wl2jo"]
 atlas = ExtResource("14_opod7")
-region = Rect2(48, 248, 16, 32)
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2bq0"]
+atlas = ExtResource("21_qy245")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oj1q7"]
+atlas = ExtResource("22_u4sb1")
+region = Rect2(192, 64, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8uoi"]
+atlas = ExtResource("22_u4sb1")
+region = Rect2(0, 64, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3pt8"]
+atlas = ExtResource("23_howib")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_howib"]
+atlas = ExtResource("22_u4sb1")
+region = Rect2(192, 16, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy245"]
+atlas = ExtResource("22_u4sb1")
+region = Rect2(0, 16, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jqe0"]
+atlas = ExtResource("23_howib")
+region = Rect2(96, 48, 16, 16)
 
 [node name="Gamemanager" type="Node2D" unique_id=1323146543 node_paths=PackedStringArray("TimerDia")]
 texture_filter = 3
@@ -276,14 +348,9 @@ TimerDia = NodePath("TimerDia")
 [node name="TimerDia" type="Timer" parent="." unique_id=745108372]
 autostart = true
 
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=237972471]
+[node name="BG" type="TextureRect" parent="." unique_id=1753240160]
 texture_filter = 3
-scroll_scale = Vector2(0.05, 0.05)
-repeat_size = Vector2(510.3, 0)
-repeat_times = 3
-
-[node name="TextureRect" type="TextureRect" parent="Parallax2D" unique_id=1753240160]
-texture_filter = 3
+material = SubResource("ShaderMaterial_8wvbs")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -295,14 +362,69 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_8wvbs")
 
+[node name="Cielo" type="ColorRect" parent="." unique_id=1384726591]
+material = SubResource("ShaderMaterial_cielo")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -352.0
+offset_top = -422.0
+offset_right = 672.0
+offset_bottom = 602.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("cielo_script")
+
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=374701112]
 texture_filter = 3
-scroll_scale = Vector2(0.1, 0.1)
-repeat_size = Vector2(510.3, 0)
-repeat_times = 3
+scroll_scale = Vector2(0.005, 0.005)
+repeat_size = Vector2(153.6, 0)
+repeat_times = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D2" unique_id=1748310993]
-position = Vector2(0, 48)
+position = Vector2(0, 70)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_316s3")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parallax2D2" unique_id=1106229180]
+modulate = Color(2.5491111, 18.892157, 9.903483, 0.5686275)
+position = Vector2(0, 70)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_316s3")
+
+[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=398577418]
+texture_filter = 3
+scroll_scale = Vector2(0.05, 0.05)
+repeat_size = Vector2(256, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3" unique_id=1896878851]
+position = Vector2(0, 70)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_316s3")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parallax2D3" unique_id=1234643732]
+modulate = Color(2.5491111, 18.892157, 9.903483, 0.34901962)
+position = Vector2(0, 70)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_316s3")
+
+[node name="Parallax2D4" type="Parallax2D" parent="." unique_id=565537660]
+texture_filter = 3
+scroll_scale = Vector2(0.08, 0.08)
+repeat_size = Vector2(358.39, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D4" unique_id=1484440571]
+position = Vector2(0, 70)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_316s3")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parallax2D4" unique_id=665131165]
+modulate = Color(2.5491111, 18.892157, 9.903483, 0.09803922)
+position = Vector2(0, 70)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("3_316s3")
 
 [node name="Suelo" type="TileMapLayer" parent="." unique_id=822791197]
@@ -317,7 +439,6 @@ position = Vector2(328, 88)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("5_xcd0a")
-Funciona = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Paneles/PanelSolar" unique_id=693014744]
 position = Vector2(27, 0)
@@ -375,8 +496,15 @@ scale = Vector2(-1, 1)
 [node name="Puerta Exterior2" parent="Base" unique_id=695260134 instance=ExtResource("9_8wvbs")]
 position = Vector2(-53, 100)
 
+[node name="Puerta Exterior4" parent="Base" unique_id=1653997291 instance=ExtResource("9_8wvbs")]
+position = Vector2(-5, 100)
+
+[node name="Puerta Exterior3" parent="Base" unique_id=1202816228 instance=ExtResource("9_8wvbs")]
+position = Vector2(192, 100)
+scale = Vector2(-1, 1)
+
 [node name="Jugador" parent="." unique_id=1143232438 instance=ExtResource("3_nlrjf")]
-position = Vector2(147, 105)
+position = Vector2(147, 109)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=365572645]
 
@@ -424,63 +552,81 @@ offset_bottom = 60.0
 texture_filter = 3
 layout_mode = 3
 anchors_preset = 0
-offset_left = 21.0
-offset_top = 136.0
-offset_right = 61.0
-offset_bottom = 176.0
+offset_left = 5.0
+offset_top = 128.0
+offset_right = 45.0
+offset_bottom = 168.0
 script = ExtResource("6_mtder")
-BarraOxigeno = NodePath("TextureProgressBar")
+BarraOxigeno = NodePath("HBoxContainer/TextureProgressBar")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="GUI/Oxigeno" unique_id=1209973211]
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Oxigeno" unique_id=535502490]
 layout_mode = 0
-offset_right = 20.0
-offset_bottom = 32.0
-value = 100.0
-fill_mode = 3
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="GUI/Oxigeno/HBoxContainer" unique_id=1209973211]
+layout_mode = 2
+value = 2.0
+fill_mode = 5
 texture_under = SubResource("AtlasTexture_veniq")
 texture_progress = SubResource("AtlasTexture_wl2jo")
+tint_under = Color(0, 0, 0, 1)
+tint_over = Color(1, 1, 1, 0.20784314)
+
+[node name="TextureRect" type="TextureRect" parent="GUI/Oxigeno/HBoxContainer" unique_id=1813196434]
+layout_mode = 2
+texture = SubResource("AtlasTexture_f2bq0")
+stretch_mode = 2
 
 [node name="StatsJugador" type="Control" parent="GUI" unique_id=346409462 node_paths=PackedStringArray("Hambre", "Sed", "Jugador")]
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -52.0
-offset_right = 48.0
-offset_bottom = -12.0
+offset_top = -34.0
+offset_right = 40.0
+offset_bottom = 6.0
 grow_vertical = 0
 script = ExtResource("7_jvowc")
-Hambre = NodePath("HBoxContainer/Hambre")
-Sed = NodePath("HBoxContainer/Sed")
+Hambre = NodePath("HBoxContainer/HBoxContainer/TextureProgressBar")
+Sed = NodePath("HBoxContainer/HBoxContainer2/TextureProgressBar2")
 Jugador = NodePath("../../Jugador")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/StatsJugador" unique_id=307807258]
+[node name="HBoxContainer" type="VBoxContainer" parent="GUI/StatsJugador" unique_id=785403421]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -40.0
-offset_right = 40.0
+offset_right = 100.0
 grow_vertical = 0
+theme_override_constants/separation = -1
 
-[node name="Hambre" type="ProgressBar" parent="GUI/StatsJugador/HBoxContainer" unique_id=1266648090]
-modulate = Color(1, 0, 0.016666412, 1)
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/StatsJugador/HBoxContainer" unique_id=2108059736]
 layout_mode = 2
-size_flags_vertical = 1
-step = 1.0
-value = 100.0
-fill_mode = 3
-show_percentage = false
 
-[node name="Sed" type="ProgressBar" parent="GUI/StatsJugador/HBoxContainer" unique_id=466820477]
-modulate = Color(0, 0.73333335, 1, 1)
+[node name="TextureProgressBar" type="TextureProgressBar" parent="GUI/StatsJugador/HBoxContainer/HBoxContainer" unique_id=1053720430]
 layout_mode = 2
-size_flags_vertical = 1
-step = 1.0
-value = 100.0
-fill_mode = 3
-show_percentage = false
+value = 66.0
+texture_under = SubResource("AtlasTexture_oj1q7")
+texture_progress = SubResource("AtlasTexture_t8uoi")
+
+[node name="TextureRect" type="TextureRect" parent="GUI/StatsJugador/HBoxContainer/HBoxContainer" unique_id=958525915]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x3pt8")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GUI/StatsJugador/HBoxContainer" unique_id=887906371]
+layout_mode = 2
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="GUI/StatsJugador/HBoxContainer/HBoxContainer2" unique_id=1444077893]
+layout_mode = 2
+value = 66.0
+texture_under = SubResource("AtlasTexture_howib")
+texture_progress = SubResource("AtlasTexture_qy245")
+
+[node name="TextureRect" type="TextureRect" parent="GUI/StatsJugador/HBoxContainer/HBoxContainer2" unique_id=927562015]
+layout_mode = 2
+texture = SubResource("AtlasTexture_1jqe0")
 
 [node name="Control" parent="GUI" unique_id=692277768 instance=ExtResource("15_fgxf0")]
 anchors_preset = 4
