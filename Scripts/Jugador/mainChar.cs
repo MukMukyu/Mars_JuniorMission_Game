@@ -4,10 +4,9 @@ using System;
 
 public partial class mainChar : CharacterBody2D
 {
-    private float velocidad = 100.0f;
-    private float velocidadCorrer = 200.0f;
-    private float salto = -176.0f;
-    private float gravedad = 371.0f;
+    private float velocidad = 50.0f;
+    private float velocidadCorrer = 80.0f;
+    private float salto = -30.60f;
 
     public bool mover = false;
     public bool correr = false;
@@ -18,7 +17,7 @@ public partial class mainChar : CharacterBody2D
         if (!IsOnFloor())
         {
             Vector2 vel = Velocity;
-            vel.Y += gravedad * (float)delta;
+            vel.Y += ConstantesGlobales.Gravedad * (float)delta;
             Velocity = vel;
         }
 

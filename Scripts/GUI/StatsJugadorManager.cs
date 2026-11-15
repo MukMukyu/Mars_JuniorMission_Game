@@ -8,7 +8,7 @@ public partial class StatsJugadorManager : MainGUI
     [Export] private mainChar Jugador;
 
     private const int HambreMaximo = 100;
-    private const int SedMaximo = 100;
+    private const int SedMaximo = 10000;
     private int hambreActual = HambreMaximo;
     private int sedActual = SedMaximo;
 
@@ -25,7 +25,7 @@ public partial class StatsJugadorManager : MainGUI
 
     protected override void _OnSecondPassed()
     {
-        int intervaloHambre = Jugador.correr ? 3 : 2;
+        int intervaloHambre = Jugador.correr ? 40 : 32;
 
         int consumoSed = Jugador.correr ? 2 : 1;
 

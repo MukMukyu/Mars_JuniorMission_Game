@@ -1,6 +1,7 @@
 
 using Godot;
 using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public partial class GameManager : Node
 {
@@ -19,9 +20,12 @@ public partial class GameManager : Node
     // [----- ACTIONS & SIGNALS -----]
 
     public event Action OnSecondPassed;
+    public event Action OnMartianSecondPassed;
     public event Action OnDayPassed;
+    public event Action OnDustStorm;
 
     // [----- OTHERS -----]
+    public bool IsDustStorm = false;
 
     public int SecondsCounter { get; private set; } = 0;
 
@@ -37,12 +41,14 @@ public partial class GameManager : Node
             if (value >= 60)
             {
                 MinutoMarciano += 1;
+                TormentaDeArena();
                 segundoMarciano = 0;
             }
             else
             {
                 segundoMarciano = value;
             }
+            OnMartianSecondPassed?.Invoke();
         }
     }
     private double minutoMarciano = 0;
@@ -77,6 +83,21 @@ public partial class GameManager : Node
     
 
 
+    private void TormentaDeArena()
+    {
+        RandomNumberGenerator rng = new RandomNumberGenerator();
+
+        float randomSeed = rng.RandfRange(0f, 1000f);
+
+        if (randomSeed < 1 * ConstantesGlobales.DCI && IsDustStorm)
+        {
+            GD.Print("Tormenta de Arena");
+            IsDustStorm = true;
+            OnDustStorm?.Invoke();
+        }
+    }
+
+
 
     private void Reloj()
     {
@@ -91,6 +112,7 @@ public partial class GameManager : Node
         {
             SecondsCounter = newSec;
             //GD.Print(SecondsCounter);
+
             OnSecondPassed?.Invoke();
         }
 
