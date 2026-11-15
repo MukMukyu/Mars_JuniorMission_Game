@@ -6,7 +6,7 @@ public partial class mainChar : CharacterBody2D
 {
     private float velocidad = 100.0f;
     private float velocidadCorrer = 200.0f;
-    private float salto = -400.0f;
+    private float salto = -176.0f;
     private float gravedad = 371.0f;
 
     public bool mover = false;

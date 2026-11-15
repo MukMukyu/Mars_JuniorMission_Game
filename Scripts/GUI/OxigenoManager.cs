@@ -28,7 +28,7 @@ public partial class OxigenoManager : MainGUI
 
             BarraOxigeno.Value = oxigenoActual;
 
-            GD.Print("Oxígeno: " + oxigenoActual);
+            //GD.Print("Oxígeno: " + oxigenoActual);
         }
     }
 }

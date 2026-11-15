@@ -10,6 +10,11 @@ public partial class PanelSolar : Area2D
     [Export] public int PorcentajeDePolvo;
     [Export] public bool Funciona { get; set; } = true;
 
+    private RandomNumberGenerator rng;
+    private int randomSeed;
+
+
+
     // Potencia real en este momento: 0 si está roto, y baja según el polvo acumulado.
     public float PotenciaActualkW
     {
@@ -30,6 +35,8 @@ public partial class PanelSolar : Area2D
         gameManager = GetNode<GameManager>(GetTree().CurrentScene.GetPath());
 
         gameManager.OnSecondPassed += _OnSecondPassed;
+
+        rng = new RandomNumberGenerator();
     }
 
 
@@ -44,5 +51,19 @@ public partial class PanelSolar : Area2D
     {
         // Energía (kWh) = potencia (kW) x tiempo (h) transcurrido en este tick.
         EnergiaManager.CargaActualkWh += PotenciaActualkW * (float)GameManager.MarsHours_PerSecond;
+
+        Romperse();
+    }
+
+
+    private void Romperse()
+    {
+        randomSeed = rng.RandiRange(0, 100);
+
+        if (randomSeed < 1)
+        {
+            GD.Print("Se ha roto el" + Name);
+            Funciona = false;
+        }
     }
 }

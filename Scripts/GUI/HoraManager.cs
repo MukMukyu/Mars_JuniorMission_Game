@@ -3,9 +3,10 @@ using System;
 
 public partial class HoraManager : MainGUI
 {
-    [Export] private Label horas;
-    [Export] private Label minutos;
-    [Export] private Label segundos;
+    [Export] private Label horasTierra;
+    [Export] private Label minutosTierra;
+    [Export] private Label horasMarte;
+    [Export] private Label minutosMarte;
 
     private int segundoCounter = 0;
     private int SegundoCounter
@@ -52,28 +53,27 @@ public partial class HoraManager : MainGUI
         if (gameManager.SecondsCounter % 1 == 0)
         {
             SegundoCounter++;
-            if (segundoCounter < 10)
-                segundos.Text = "0" + SegundoCounter.ToString();
-            else
-                segundos.Text = SegundoCounter.ToString();
+
+            horasMarte.Text = Mathf.Floor(gameManager.HoraMarciana).ToString();
+            minutosMarte.Text = Mathf.Floor(gameManager.HoraMarciana % 60).ToString();
 
             if (MinutoCounter < 10)
-                minutos.Text = "0" + MinutoCounter.ToString();
+                minutosTierra.Text = "0" + MinutoCounter.ToString();
             else
-                minutos.Text = MinutoCounter.ToString();
+                minutosTierra.Text = MinutoCounter.ToString();
 
             if (HoraCounter < 10)
-                horas.Text = "0" + HoraCounter.ToString();
+                horasTierra.Text = "0" + HoraCounter.ToString();
             else
-                horas.Text = MinutoCounter.ToString();
+                horasTierra.Text = MinutoCounter.ToString();
         }
 
-        GD.Print(SegundoCounter);
+        //GD.Print(SegundoCounter);
     }
 
     protected override sealed void _OnDayPassed()
     {
         HoraCounter = 0;
-        horas.Text = HoraCounter.ToString();
+        horasTierra.Text = HoraCounter.ToString();
     }
 }
