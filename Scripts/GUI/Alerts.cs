@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Threading.Tasks;
 
 public partial class Alerts : NinePatchRect
 {
@@ -19,8 +18,24 @@ public partial class Alerts : NinePatchRect
 
     // [----- ESTADOS AL ABRIR Y CERRAR -----]
     private bool onRange = false;
+    private string currectAnimation;
     // [---- OTROS -----]
-    protected Tween tweenAnim { get; private set; }
+    private Tween tweenAnim { get; set; }
+
+
+
+
+    public static Alerts NewAlert(string _title, string _message)
+    {
+        PackedScene AlertScene = GD.Load<PackedScene>("uid://csjrgsrdhemo1");
+        Alerts newAlert = AlertScene.Instantiate<Alerts>();
+
+        newAlert.title = _title;
+        newAlert.message = _message;
+
+        return newAlert;
+    }
+
 
 
 
@@ -29,6 +44,8 @@ public partial class Alerts : NinePatchRect
         OffsetTransformEnabled = true;
 
         PlayAnimation((int)WindowsAnimations.SHOW);
+
+        tweenAnim.Finished += _OnAnimFinished;
     }
 
 
@@ -36,6 +53,12 @@ public partial class Alerts : NinePatchRect
     private void Timeout()
     {
         PlayAnimation((int)WindowsAnimations.HIDE);
+    }
+
+    private void _OnAnimFinished()
+    {
+        if (currectAnimation == "Hide")
+            QueueFree();
     }
 
 
@@ -47,11 +70,13 @@ public partial class Alerts : NinePatchRect
         switch (animation)
         {
             case 0:    // Animación "hide"
+                currectAnimation = "Hide";
                 onRange = false;
                 tweenAnim.SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
                 tweenAnim.TweenProperty(this, "offset_transform_position", HIDE_ANIM_POSITION, 0.5);
                 break;
             case 1:     // Animación "show"
+                currectAnimation = "Show";
                 onRange = true;
                 tweenAnim.SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Bounce);
                 tweenAnim.TweenProperty(this, "offset_transform_position", SHOW_ANIM_POSITION, 0.3);
