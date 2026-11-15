@@ -4,6 +4,7 @@ var conexiones = []
 var cable_activo = false
 var inicio_pos = Vector2.ZERO
 var color_actual = Color.WHITE
+ 
 
 func _draw():
 	for conexion in conexiones:
