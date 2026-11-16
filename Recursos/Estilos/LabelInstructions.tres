@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://vomd7i28ws6b"]
+
+[ext_resource type="FontFile" uid="uid://cu88x4obo7gsx" path="res://Recursos/Fonts/Pixelzone.ttf" id="1_glnv1"]
+
+[resource]
+font = ExtResource("1_glnv1")
+font_size = 5
+font_color = Color(0.75008386, 0.10204656, 0.4012551, 1)

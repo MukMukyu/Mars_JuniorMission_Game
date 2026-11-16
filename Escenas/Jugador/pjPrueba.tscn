@@ -7,11 +7,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cha6u"]
 size = Vector2(5, 7)
 
-[node name="Jugador" type="CharacterBody2D" unique_id=1143232438]
+[node name="Jugador" type="CharacterBody2D" unique_id=1143232438 node_paths=PackedStringArray("sprite")]
 texture_filter = 3
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_c7tht")
+sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2145228762]
 position = Vector2(0, -1)

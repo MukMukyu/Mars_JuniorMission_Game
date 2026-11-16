@@ -7,10 +7,10 @@ public partial class StatsJugadorManager : MainGUI
     [Export] private TextureProgressBar Sed;
     [Export] private mainChar Jugador;
 
-    private const int HambreMaximo = 100;
-    private const int SedMaximo = 10000;
-    private int hambreActual = HambreMaximo;
-    private int sedActual = SedMaximo;
+    private const int HambreMaximo = 3000;
+    private const int SedMaximo = 3000;
+    public int hambreActual = HambreMaximo;
+    public int sedActual = SedMaximo;
 
     public override void _Ready()
     {
@@ -25,26 +25,20 @@ public partial class StatsJugadorManager : MainGUI
 
     protected override void _OnMinutePassed()
     {
-        int intervaloHambre = Jugador.correr ? 40 : 32;
+        int consumoHambre = Jugador.correr ? 2 : 1;
 
-        int consumoSed = Jugador.correr ? 2 : 1;
+        int consumoSed = Jugador.correr ? 3 : 2;
 
-        if (gameManager.MinutoMarciano % intervaloHambre == 0)
+
+        if (hambreActual > 0)
         {
-            if (hambreActual > 0)
-            {
-                hambreActual--;
-                Hambre.Value = hambreActual;
-            }
+            hambreActual = Mathf.Clamp(hambreActual - consumoHambre, 0, HambreMaximo);
+            Hambre.Value = hambreActual;
         }
 
         if (sedActual > 0)
         {
-            sedActual -= consumoSed;
-
-            if (sedActual < 0)
-                sedActual = 0;
-
+            sedActual = Mathf.Clamp(sedActual - consumoSed, 0, SedMaximo);
             Sed.Value = sedActual;
         }
     }

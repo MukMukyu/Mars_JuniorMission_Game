@@ -40,6 +40,12 @@ public partial class EnergiaManager : MainGUI
     {
         base._Ready();
 
+        // Estos valores son estáticos y sobreviven al cambio de escena (RESTART del Game Over):
+        // hay que volver al estado inicial o la partida nueva empezaría con la batería de la anterior.
+        CargaActualkWh = CapacidadTotalkWh * 0.70f;
+        ConsumoActualkWh = 0;
+        ProduccionActualkWh = 0;
+
         BarraEnergia.MaxValue = CapacidadTotalkWh;
         BarraEnergia.Value = CargaActualkWh;
         Porcentaje.Text = Mathf.Floor((CargaActualkWh / CapacidadTotalkWh) * 100).ToString("F0") + "%";
@@ -47,9 +53,7 @@ public partial class EnergiaManager : MainGUI
 
     protected override void _OnMinutePassed()
     {
-        if (CargaActualkWh <= 0)
-            return;
-
+        // Sin "return" con batería a 0: si no, al amanecer los paneles nunca podrían recargarla.
         CargaActualkWh += ProduccionActualkWh - ConsumoActualkWh;
 
         BarraEnergia.Value = CargaActualkWh;

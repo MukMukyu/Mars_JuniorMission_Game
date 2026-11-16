@@ -6,8 +6,6 @@ public partial class Alerts : NinePatchRect
     [Export] private Timer timer;
     [Export] private Label titleLabel;
     [Export] private Label messageLabel;
-    [Export] public string title;
-    [Export] public string message;
 
     // [----- ENUM PARA LAS ANIMACIONES -----]
     public enum WindowsAnimations { HIDE, SHOW };
@@ -30,8 +28,8 @@ public partial class Alerts : NinePatchRect
         PackedScene AlertScene = GD.Load<PackedScene>("uid://csjrgsrdhemo1");
         Alerts newAlert = AlertScene.Instantiate<Alerts>();
 
-        newAlert.title = _title;
-        newAlert.message = _message;
+        newAlert.titleLabel.Text = _title;
+        newAlert.messageLabel.Text = _message;
 
         return newAlert;
     }
@@ -44,11 +42,18 @@ public partial class Alerts : NinePatchRect
         OffsetTransformEnabled = true;
 
         PlayAnimation((int)WindowsAnimations.SHOW);
-
-        tweenAnim.Finished += _OnAnimFinished;
     }
 
 
+
+    // La alerta se queda en pantalla hasta que quien la creó resuelve el problema y llama a Cerrar():
+    // entonces se desliza fuera y se borra.
+    public void Cerrar()
+    {
+        if (currectAnimation == "Hide") return;
+
+        PlayAnimation((int)WindowsAnimations.HIDE);
+    }
 
     private void Timeout()
     {
@@ -90,6 +95,8 @@ public partial class Alerts : NinePatchRect
         if (tweenAnim != null)
             tweenAnim.Kill();
 
+        // Cada animación crea un tween nuevo: hay que conectarse a cada uno, o al esconderse no se borraría.
         tweenAnim = CreateTween();
+        tweenAnim.Finished += _OnAnimFinished;
     }
 }

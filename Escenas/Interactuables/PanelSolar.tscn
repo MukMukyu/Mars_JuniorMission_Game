@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://bibrtubsh45bn"]
+
+[ext_resource type="Script" uid="uid://vryun0prwksb" path="res://Scripts/Interactuables/PanelSolar.cs" id="1_32fhg"]
+[ext_resource type="Texture2D" uid="uid://en1ewt1cen2v" path="res://Sprites/Objetos_Interactuables/solarPanel.png" id="2_whcne"]
+[ext_resource type="Texture2D" uid="uid://c2cli2ofjnrl4" path="res://Sprites/GUI/DIY_16x16.png" id="3_elwie"]
+[ext_resource type="LabelSettings" uid="uid://b85gi37su8qg3" path="res://Recursos/Estilos/LabelHora.tres" id="4_x8rda"]
+[ext_resource type="LabelSettings" uid="uid://k25xkkoviykg" path="res://Recursos/Estilos/LabelHora2.tres" id="5_enbx4"]
+[ext_resource type="PackedScene" uid="uid://cab7hhxu8qstq" path="res://Escenas/GUI/InstructionsControls.tscn" id="6_x8rda"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcd0a"]
+size = Vector2(43, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xreih"]
+atlas = ExtResource("3_elwie")
+region = Rect2(368, 192, 48, 48)
+
+[node name="PanelSolar" type="Area2D" unique_id=914413482 node_paths=PackedStringArray("control", "porcentaje", "PopOp", "labelAccion")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_32fhg")
+control = NodePath("Control")
+porcentaje = NodePath("Control/NinePatchRect/HBoxContainer/Label2")
+PopOp = NodePath("Control/NinePatchRect")
+labelAccion = NodePath("Interaction")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1881775321]
+position = Vector2(27, 0)
+texture = ExtResource("2_whcne")
+offset = Vector2(0, 15)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1042318428]
+texture = ExtResource("2_whcne")
+offset = Vector2(0, 15)
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=417192974]
+position = Vector2(-27, 0)
+texture = ExtResource("2_whcne")
+offset = Vector2(0, 15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1522597779]
+position = Vector2(0, 12)
+scale = Vector2(1.32, 1)
+shape = SubResource("RectangleShape2D_xcd0a")
+
+[node name="Control" type="Control" parent="." unique_id=285069965]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 5.0
+offset_right = 20.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control" unique_id=30103564]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -21.0
+offset_top = -4.0
+offset_right = 61.0
+offset_bottom = 20.0
+texture = SubResource("AtlasTexture_xreih")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/NinePatchRect" unique_id=693403824]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = -20.0
+offset_right = 30.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/NinePatchRect/HBoxContainer" unique_id=1546043298]
+layout_mode = 2
+text = "Dust:"
+label_settings = ExtResource("4_x8rda")
+
+[node name="Label2" type="Label" parent="Control/NinePatchRect/HBoxContainer" unique_id=322820560]
+layout_mode = 2
+text = "100%"
+label_settings = ExtResource("5_enbx4")
+
+[node name="Interaction" parent="." unique_id=82688908 instance=ExtResource("6_x8rda")]
+offset_left = 16.0
+offset_top = -11.0
+offset_right = 16.0
+offset_bottom = -11.0
+
+[connection signal="body_entered" from="." to="." method="_OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="_OnBodyExited"]

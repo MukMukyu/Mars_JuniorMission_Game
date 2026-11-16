@@ -15,7 +15,7 @@ font = ExtResource("4_n44lf")
 font_size = 6
 font_color = Color(0.37, 0.0703, 0.19018002, 1)
 
-[node name="Alerts" type="NinePatchRect" unique_id=1332602644 node_paths=PackedStringArray("titleLabel", "messageLabel")]
+[node name="Alerts" type="NinePatchRect" unique_id=1332602644 node_paths=PackedStringArray("timer", "titleLabel", "messageLabel")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -34,6 +34,7 @@ patch_margin_top = 16
 patch_margin_right = 16
 patch_margin_bottom = 16
 script = ExtResource("2_n44lf")
+timer = NodePath("Timer")
 titleLabel = NodePath("Title")
 messageLabel = NodePath("Message")
 
@@ -66,7 +67,7 @@ offset_right = 63.0
 offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "You'll generate less power! Go and clean them!"
+text = "You'll not generate power! Go and fix it!"
 label_settings = SubResource("LabelSettings_xdebp")
 horizontal_alignment = 1
 vertical_alignment = 1

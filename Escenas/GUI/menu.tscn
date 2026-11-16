@@ -1,8 +1,38 @@
 [gd_scene format=3 uid="uid://dlhdkwymxnwsf"]
 
-[ext_resource type="Texture2D" uid="uid://48brl03q4gd" path="res://images/menu.jpg" id="1_80itx"]
-[ext_resource type="Script" uid="uid://cstjce2gmqcrg" path="res://script/menu.gd" id="1_htjmv"]
-[ext_resource type="FontFile" uid="uid://df1iux1a60jsw" path="res://font/Butterfly_Kids,Lexend_Deca,Saira,Sour_Gummy/Saira/static/Saira-Black.ttf" id="3_7x7e6"]
+[ext_resource type="Script" uid="uid://pi5u3vnlk1rs" path="res://Scripts/MenuInicio.cs" id="1_htjmv"]
+[ext_resource type="Shader" uid="uid://dkmnqd84xenm5" path="res://Recursos/Shader/Estrellas.gdshader" id="2_6jfhu"]
+[ext_resource type="FontFile" uid="uid://1ur8ity5hgq6" path="res://Recursos/Fonts/the-libra-heart-font.ttf" id="3_vckib"]
+[ext_resource type="FontFile" uid="uid://t2bpr1avyle0" path="res://Recursos/Fonts/HomeVideo-Bold.ttf" id="4_ebgun"]
+
+[sub_resource type="Gradient" id="Gradient_i7b8a"]
+offsets = PackedFloat32Array(0, 0.19345239, 0.36607143, 0.6041667, 0.8839286, 1)
+colors = PackedColorArray(0.14, 0.091, 0.091, 1, 0.16, 0.15845333, 0.1136, 1, 0.1653, 0.18753, 0.19, 1, 0.332, 0.38639998, 0.4, 1, 0.158, 0.1727, 0.2, 1, 0.19319999, 0.1464, 0.24, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ke6h3"]
+gradient = SubResource("Gradient_i7b8a")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvo3m"]
+shader = ExtResource("2_6jfhu")
+shader_parameter/gradientA = SubResource("GradientTexture1D_ke6h3")
+shader_parameter/horizontalMovement = 2.9802400103307036e-08
+shader_parameter/verticalMovement = 2.9802400103307036e-08
+shader_parameter/frequencyStar = 0.1
+shader_parameter/sizeStar = 100.0
+shader_parameter/brightnessStar = 2.0
+shader_parameter/shineFrequencyStar = 2.0
+shader_parameter/transparencyStar = 0.0
+shader_parameter/starIterations = 3
+shader_parameter/frequencyBgStar = 0.996
+shader_parameter/shineFrequencyBgStar = 1.0
+shader_parameter/transparencyBgStar = 0.51999998837696
+shader_parameter/colorBackground = Color(0, 0, 0, 1)
+shader_parameter/transparencyBackground = 0.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_vckib"]
+font = ExtResource("3_vckib")
+font_size = 44
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6f1sr"]
 bg_color = Color(0.5686275, 0.72156864, 0.7647059, 1)
@@ -17,18 +47,6 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 corner_detail = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7p1re"]
-bg_color = Color(0.5686275, 0.72156864, 0.7647059, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.46666667, 0.7490196, 0.7607843, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htjmv"]
 bg_color = Color(0.5686275, 0.72156864, 0.7647059, 1)
 border_width_left = 2
@@ -41,17 +59,13 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[node name="Menu" type="Control" unique_id=891220662]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Menu" type="CanvasLayer" unique_id=903563258 node_paths=PackedStringArray("botonJugar", "botonSalir")]
 script = ExtResource("1_htjmv")
+botonJugar = NodePath("VBoxContainer/Play")
+botonSalir = NodePath("VBoxContainer/Quit")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=181719820]
-layout_mode = 1
+material = SubResource("ShaderMaterial_pvo3m")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -59,59 +73,41 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.16203249, 0.1524317, 0.15182382, 1)
 
-[node name="TextureRect" type="TextureRect" parent="ColorRect" unique_id=208793692]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_80itx")
-expand_mode = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=1211230890]
-layout_mode = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1211230890]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -219.6875
-offset_top = -194.0
-offset_right = 219.6875
-offset_bottom = 194.0
+offset_left = -153.0
+offset_top = -69.0
+offset_right = 564.0
+offset_bottom = 309.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.37, 0.37)
+pivot_offset_ratio = Vector2(0.05, 0.05)
 theme_override_constants/separation = 30
 
-[node name="Label" type="Label" parent="ColorRect/VBoxContainer" unique_id=2144506439]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=2144506439]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_7x7e6")
 theme_override_font_sizes/font_size = 50
-text = "MENU INICIO"
+text = "My Junior Colonist"
+label_settings = SubResource("LabelSettings_vckib")
 horizontal_alignment = 1
 
-[node name="Play" type="Button" parent="ColorRect/VBoxContainer" unique_id=1928935493]
+[node name="Play" type="Button" parent="VBoxContainer" unique_id=1928935493]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.096872695, 0.09141108, 0.094969146, 1)
+theme_override_fonts/font = ExtResource("4_ebgun")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_6f1sr")
-text = "JUGAR"
+text = "Play"
 
-[node name="Options" type="Button" parent="ColorRect/VBoxContainer" unique_id=959044734]
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=1273580310]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.09803922, 0.09019608, 0.09411765, 1)
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_7p1re")
-text = "OPCIONES"
-
-[node name="Quit" type="Button" parent="ColorRect/VBoxContainer" unique_id=1273580310]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.09803922, 0.09019608, 0.09411765, 1)
+theme_override_fonts/font = ExtResource("4_ebgun")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_htjmv")
-text = "SALIR"
-
-[connection signal="pressed" from="ColorRect/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/Options" to="." method="_on_option_pressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+text = "Quit"

@@ -4,8 +4,9 @@
 [ext_resource type="LabelSettings" uid="uid://01lgrer57gf0" path="res://Recursos/Estilos/LabelTemp.tres" id="2_3dghn"]
 [ext_resource type="LabelSettings" uid="uid://k25xkkoviykg" path="res://Recursos/Estilos/LabelHora2.tres" id="3_3dghn"]
 [ext_resource type="Script" uid="uid://ds4ktvps3w1pm" path="res://Scripts/APIs/TemperaturaMCD.cs" id="4_iin8i"]
+[ext_resource type="Script" path="res://Scripts/GUI/TemperaturaInterna.cs" id="5_tint"]
 
-[node name="Control" type="NinePatchRect" unique_id=692277768]
+[node name="Temperatura" type="NinePatchRect" unique_id=692277768]
 texture_filter = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -49,7 +50,7 @@ layout_mode = 2
 text = "Exterior:"
 label_settings = ExtResource("2_3dghn")
 
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=993869189]
+[node name="TempExterna" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=993869189]
 layout_mode = 2
 text = "0 °C"
 label_settings = ExtResource("3_3dghn")
@@ -63,11 +64,15 @@ layout_mode = 2
 text = "Interior:"
 label_settings = ExtResource("2_3dghn")
 
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=2085834744]
+[node name="TempInterna" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=2085834744]
 layout_mode = 2
 text = "0 °C"
 label_settings = ExtResource("3_3dghn")
 
 [node name="Temperatura" type="Node" parent="." unique_id=656030180 node_paths=PackedStringArray("etiqueta")]
 script = ExtResource("4_iin8i")
-etiqueta = NodePath("../VBoxContainer/HBoxContainer/Label2")
+etiqueta = NodePath("../VBoxContainer/HBoxContainer/TempExterna")
+
+[node name="TemperaturaInterna" type="Node" parent="." unique_id=1497023586 node_paths=PackedStringArray("etiqueta")]
+script = ExtResource("5_tint")
+etiqueta = NodePath("../VBoxContainer/HBoxContainer2/TempInterna")

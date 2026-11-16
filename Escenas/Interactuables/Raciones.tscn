@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://c3iaeahe74qtg"]
+
+[ext_resource type="Texture2D" uid="uid://b0aqmd37ddkqw" path="res://Sprites/Objetos_Interactuables/Raciones.png" id="1_k542l"]
+[ext_resource type="Script" uid="uid://c6l2qptib46fi" path="res://Scripts/Interactuables/Raciones.cs" id="1_xo8bw"]
+[ext_resource type="PackedScene" uid="uid://cab7hhxu8qstq" path="res://Escenas/GUI/InstructionsControls.tscn" id="2_738uw"]
+[ext_resource type="Texture2D" uid="uid://c2cli2ofjnrl4" path="res://Sprites/GUI/DIY_16x16.png" id="3_xo8bw"]
+[ext_resource type="LabelSettings" uid="uid://vomd7i28ws6b" path="res://Recursos/Estilos/LabelInstructions.tres" id="4_6jjby"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jrn0p"]
+radius = 11.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xreih"]
+atlas = ExtResource("1_k542l")
+region = Rect2(0, 0, 15, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfhap"]
+atlas = ExtResource("1_k542l")
+region = Rect2(15, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_veniq"]
+atlas = ExtResource("1_k542l")
+region = Rect2(31, 0, 14, 8)
+
+[node name="Raciones" type="Area2D" unique_id=1616855972 node_paths=PackedStringArray("foodLeftlabel", "PopOp", "labelAccion")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_xo8bw")
+foodLeftlabel = NodePath("Control/TextureRect/HBoxContainer/Label2")
+PopOp = NodePath("Control/TextureRect")
+labelAccion = NodePath("Interaction")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1931744670]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_jrn0p")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=563979134]
+texture = SubResource("AtlasTexture_xreih")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=19937812]
+position = Vector2(-2, -7)
+texture = SubResource("AtlasTexture_lfhap")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=2059323245]
+position = Vector2(0, -14)
+texture = SubResource("AtlasTexture_veniq")
+
+[node name="Interaction" parent="." unique_id=82688908 instance=ExtResource("2_738uw")]
+offset_left = 14.0
+offset_right = 14.0
+
+[node name="Control" type="Control" parent="." unique_id=374945733]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -22.0
+offset_top = -24.0
+offset_right = 18.0
+offset_bottom = 16.0
+
+[node name="TextureRect" type="NinePatchRect" parent="Control" unique_id=19978870]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -23.0
+offset_top = 15.0
+offset_right = 25.0
+offset_bottom = 25.0
+texture = ExtResource("3_xo8bw")
+region_rect = Rect2(448, 22, 48, 10)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/TextureRect" unique_id=1015814438]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 46.0
+offset_bottom = 10.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/TextureRect/HBoxContainer" unique_id=1723453764]
+layout_mode = 2
+text = "Rations left:"
+label_settings = ExtResource("4_6jjby")
+
+[node name="Label2" type="Label" parent="Control/TextureRect/HBoxContainer" unique_id=695870705]
+layout_mode = 2
+text = "10"
+label_settings = ExtResource("4_6jjby")
+
+[node name="Label3" type="Label" parent="Control/TextureRect/HBoxContainer" unique_id=283149748]
+layout_mode = 2
+text = "packs"
+label_settings = ExtResource("4_6jjby")
+
+[connection signal="body_entered" from="." to="." method="_OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="_OnBodyExited"]

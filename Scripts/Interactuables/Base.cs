@@ -13,8 +13,8 @@ public partial class Base : Node2D
         {
             if (value == kiloWattsConsumidosActuales) return;
 
-            EnergiaManager.ConsumoActualkWh -= kiloWattsConsumidosActuales * (float)GameManager.MarsHours_PerSecond;
-            EnergiaManager.ConsumoActualkWh += value * (float)GameManager.MarsHours_PerSecond;
+            EnergiaManager.ConsumoActualkWh -= kiloWattsConsumidosActuales * (float)GameManager.HorasPorMinutoMarciano;
+            EnergiaManager.ConsumoActualkWh += value * (float)GameManager.HorasPorMinutoMarciano;
             kiloWattsConsumidosActuales = value;
         }
     }

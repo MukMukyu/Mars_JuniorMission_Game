@@ -5,19 +5,22 @@
 [ext_resource type="Texture2D" uid="uid://cmw2gasexmi41" path="res://Sprites/GUI/Premade Menus.png" id="2_g61cg"]
 [ext_resource type="LabelSettings" uid="uid://k25xkkoviykg" path="res://Recursos/Estilos/LabelHora2.tres" id="3_ibnjk"]
 [ext_resource type="LabelSettings" uid="uid://01lgrer57gf0" path="res://Recursos/Estilos/LabelTemp.tres" id="4_iidg1"]
+[ext_resource type="PackedScene" uid="uid://cab7hhxu8qstq" path="res://Escenas/GUI/InstructionsControls.tscn" id="6_g7f1k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lfhap"]
-radius = 13.0
+radius = 9.0
 
-[node name="MedidorEnergia" type="Area2D" unique_id=246999753 node_paths=PackedStringArray("PopOp", "consumed", "produced")]
+[node name="MedidorEnergia" type="Area2D" unique_id=246999753 node_paths=PackedStringArray("consumed", "produced", "PopOp", "labelAccion")]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_iidg1")
-PopOp = NodePath("CanvasLayer/NinePatchRect")
 consumed = NodePath("CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer/HBoxContainer/Consumed")
 produced = NodePath("CanvasLayer/NinePatchRect/VBoxContainer3/VBoxContainer2/HBoxContainer2/Produced")
+PopOp = NodePath("CanvasLayer/NinePatchRect")
+labelAccion = NodePath("Interaction")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1382340089]
+position = Vector2(-1, 2)
 shape = SubResource("CircleShape2D_lfhap")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1834486546]
@@ -97,6 +100,12 @@ label_settings = ExtResource("4_iidg1")
 layout_mode = 2
 text = "kWh..."
 label_settings = ExtResource("4_iidg1")
+
+[node name="Interaction" parent="." unique_id=82688908 instance=ExtResource("6_g7f1k")]
+offset_left = 7.0
+offset_top = 2.0
+offset_right = 7.0
+offset_bottom = 2.0
 
 [connection signal="body_entered" from="." to="." method="_OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="_OnBodyExited"]

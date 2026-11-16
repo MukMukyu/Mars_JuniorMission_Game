@@ -6,27 +6,30 @@
 [ext_resource type="Shader" uid="uid://dkmnqd84xenm5" path="res://Recursos/Shader/Estrellas.gdshader" id="2_ke6h3"]
 [ext_resource type="Texture2D" uid="uid://dp02po1bgcxe8" path="res://Escenas/Jugador/montañas1.png" id="3_316s3"]
 [ext_resource type="PackedScene" uid="uid://dgrn1qd8vsj76" path="res://Escenas/Jugador/pjPrueba.tscn" id="3_nlrjf"]
-[ext_resource type="Texture2D" uid="uid://en1ewt1cen2v" path="res://Sprites/Objetos_Interactuables/solarPanel.png" id="5_316s3"]
 [ext_resource type="Script" uid="uid://d2lr45jd41api" path="res://Scripts/GUI/EnergiaManager.cs" id="5_nlrjf"]
-[ext_resource type="Script" uid="uid://vryun0prwksb" path="res://Scripts/Interactuables/PanelSolar.cs" id="5_xcd0a"]
 [ext_resource type="Script" uid="uid://rp48n560ng4n" path="res://Scripts/GUI/OxigenoManager.cs" id="6_mtder"]
 [ext_resource type="Script" uid="uid://bsqmuhv20kxq5" path="res://Scripts/Interactuables/Base.cs" id="7_iisvy"]
 [ext_resource type="Script" uid="uid://crb3cbhcb2aoq" path="res://Scripts/GUI/StatsJugadorManager.cs" id="7_jvowc"]
 [ext_resource type="Texture2D" uid="uid://ceplprdqbys2s" path="res://Sprites/Fondos/TileMap_Base.png" id="7_ke6h3"]
+[ext_resource type="PackedScene" uid="uid://bibrtubsh45bn" path="res://Escenas/Interactuables/PanelSolar.tscn" id="8_jrn0p"]
 [ext_resource type="PackedScene" uid="uid://bql1jos22dsuq" path="res://Escenas/Interactuables/PuertaExterior.tscn" id="9_8wvbs"]
 [ext_resource type="Texture2D" uid="uid://c2cli2ofjnrl4" path="res://Sprites/GUI/DIY_16x16.png" id="11_opod7"]
 [ext_resource type="PackedScene" uid="uid://ca1jt7ah23kf1" path="res://Escenas/GUI/Reloj.tscn" id="11_r15m3"]
 [ext_resource type="Texture2D" uid="uid://xriwolnndm05" path="res://Sprites/GUI/05.png" id="12_lf5sn"]
 [ext_resource type="PackedScene" uid="uid://dfrnyn5gc88k" path="res://Escenas/Interactuables/MedidorEnergia.tscn" id="13_6g7lc"]
+[ext_resource type="PackedScene" uid="uid://c3iaeahe74qtg" path="res://Escenas/Interactuables/Raciones.tscn" id="13_tamks"]
 [ext_resource type="Texture2D" uid="uid://dnooen47ihk0h" path="res://Sprites/GUI/07.png" id="14_opod7"]
+[ext_resource type="PackedScene" uid="uid://dxnc5lxobqw6v" path="res://Escenas/Interactuables/DispensadorAgua.tscn" id="14_tamks"]
 [ext_resource type="PackedScene" uid="uid://mt8gjoi4dss4" path="res://Escenas/GUI/Temperaturas.tscn" id="15_fgxf0"]
 [ext_resource type="LabelSettings" uid="uid://k25xkkoviykg" path="res://Recursos/Estilos/LabelHora2.tres" id="15_ke6h3"]
 [ext_resource type="Texture2D" uid="uid://bk3ahqwhxlorn" path="res://Sprites/GUI/Icons_Weather.png" id="21_qy245"]
 [ext_resource type="Texture2D" uid="uid://u1eydbgmdo6w" path="res://Sprites/GUI/06.png" id="22_u4sb1"]
 [ext_resource type="Texture2D" uid="uid://ylr7dxml3nga" path="res://Sprites/GUI/Icons_Food.png" id="23_howib"]
-[ext_resource type="PackedScene" uid="uid://csjrgsrdhemo1" path="res://Escenas/GUI/alerts.tscn" id="27_tamks"]
+[ext_resource type="Shader" uid="uid://ddwrmtybjlbjt" path="res://Recursos/Shader/DustStorm.gdshader" id="29_5pqa0"]
+[ext_resource type="Texture2D" uid="uid://be1pa6m3plktr" path="res://Recursos/noise.jpg" id="30_plp3r"]
 [ext_resource type="Script" uid="uid://t3eqnr85vyra" path="res://Scripts/Principales/CieloMarciano.cs" id="cielo_script"]
 [ext_resource type="Shader" uid="uid://dvpq4itcqo75w" path="res://Recursos/Shader/CieloMarciano.gdshader" id="cielo_shader"]
+[ext_resource type="PackedScene" path="res://Escenas/GUI/GameOver.tscn" id="gameover_scene"]
 
 [sub_resource type="Gradient" id="Gradient_i7b8a"]
 offsets = PackedFloat32Array(0, 0.19345239, 0.36607143, 0.6041667, 0.8839286, 1)
@@ -248,9 +251,6 @@ terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_8mk6v")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcd0a"]
-size = Vector2(43, 24)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i7b8a"]
 texture = ExtResource("7_ke6h3")
@@ -476,9 +476,17 @@ region = Rect2(0, 16, 48, 16)
 atlas = ExtResource("23_howib")
 region = Rect2(96, 48, 16, 16)
 
-[node name="Gamemanager" type="Node2D" unique_id=1323146543 node_paths=PackedStringArray("TimerDia")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xreih"]
+shader = ExtResource("29_5pqa0")
+shader_parameter/noise_texture = ExtResource("30_plp3r")
+shader_parameter/smoke_color = Color(0.8, 0.504, 0.504, 1)
+shader_parameter/distortion_speed = 5.0
+shader_parameter/density = 1.0
+
+[node name="Gamemanager" type="Node2D" unique_id=1323146543 node_paths=PackedStringArray("dustStormLayer", "TimerDia")]
 texture_filter = 3
 script = ExtResource("1_j8up3")
+dustStormLayer = NodePath("DustStorm")
 TimerDia = NodePath("TimerDia")
 
 [node name="TimerDia" type="Timer" parent="." unique_id=745108372]
@@ -577,55 +585,13 @@ metadata/_edit_lock_ = true
 [node name="Paneles" type="Node2D" parent="." unique_id=100692552]
 metadata/_edit_lock_ = true
 
-[node name="PanelSolar" type="Area2D" parent="Paneles" unique_id=467002803]
+[node name="PanelSolar" parent="Paneles" unique_id=914413482 node_paths=PackedStringArray("AlertBox") instance=ExtResource("8_jrn0p")]
 position = Vector2(328, 88)
-collision_layer = 4
-collision_mask = 2
-script = ExtResource("5_xcd0a")
+AlertBox = NodePath("../../Alerts/AlertBox")
 
-[node name="Sprite2D" type="Sprite2D" parent="Paneles/PanelSolar" unique_id=693014744]
-position = Vector2(27, 0)
-texture = ExtResource("5_316s3")
-offset = Vector2(0, 15)
-
-[node name="Sprite2D2" type="Sprite2D" parent="Paneles/PanelSolar" unique_id=1874104642]
-texture = ExtResource("5_316s3")
-offset = Vector2(0, 15)
-
-[node name="Sprite2D3" type="Sprite2D" parent="Paneles/PanelSolar" unique_id=949626872]
-position = Vector2(-27, 0)
-texture = ExtResource("5_316s3")
-offset = Vector2(0, 15)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paneles/PanelSolar" unique_id=747155293]
-position = Vector2(0, 12)
-scale = Vector2(1.32, 1)
-shape = SubResource("RectangleShape2D_xcd0a")
-
-[node name="PanelSolar2" type="Area2D" parent="Paneles" unique_id=923642079]
-position = Vector2(424, 88)
-collision_layer = 4
-collision_mask = 2
-script = ExtResource("5_xcd0a")
-
-[node name="Sprite2D" type="Sprite2D" parent="Paneles/PanelSolar2" unique_id=625962632]
-position = Vector2(27, 0)
-texture = ExtResource("5_316s3")
-offset = Vector2(0, 15)
-
-[node name="Sprite2D2" type="Sprite2D" parent="Paneles/PanelSolar2" unique_id=1761948563]
-texture = ExtResource("5_316s3")
-offset = Vector2(0, 15)
-
-[node name="Sprite2D3" type="Sprite2D" parent="Paneles/PanelSolar2" unique_id=1964799297]
-position = Vector2(-27, 0)
-texture = ExtResource("5_316s3")
-offset = Vector2(0, 15)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paneles/PanelSolar2" unique_id=1847762127]
-position = Vector2(0, 12)
-scale = Vector2(1.32, 1)
-shape = SubResource("RectangleShape2D_xcd0a")
+[node name="PanelSolar2" parent="Paneles" unique_id=103857040 node_paths=PackedStringArray("AlertBox") instance=ExtResource("8_jrn0p")]
+position = Vector2(429, 88)
+AlertBox = NodePath("../../Alerts/AlertBox")
 
 [node name="Base" type="TileMapLayer" parent="." unique_id=1518668587]
 tile_map_data = PackedByteArray("AAAbAAsAAAAEAAEAAAAbAAwAAAAEAAIAAAAbAA0AAAAEAAMAAAAcAAsAAAAEAAEAAAAcAAwAAAAEAAIAAAAcAA0AAAAEAAMAAAAdAAsAAAAEAAEAAAAdAAwAAAAEAAIAAAAdAA0AAAAEAAMAAAAaAAsAAAAEAAEAAAAaAAwAAAAEAAIAAAAaAA0AAAAEAAMAAAAZAAsAAAAEAAEAAAAZAAwAAAAEAAIAAAAZAA0AAAAEAAMAAAAYAAsAAAADAAEAAAAYAAwAAAADAAIAAAAYAA0AAAADAAMAAAAVAAsAAAAKAAIAAAAVAAwAAAAKAAIAAAAVAA0AAAAKAAMAAAAWAAsAAAAKAAIAAAAWAAwAAAAKAAIAAAAWAA0AAAAKAAMAAAAXAAsAAAALAAIAAAAXAAwAAAALAAIAAAAXAA0AAAALAAMAAAAVAAoAAAAKAAEAAAAWAAoAAAAKAAEAAAAXAAoAAAALAAEAAAARAAoAAAAKAAEAAAARAAsAAAAKAAIAAAARAAwAAAAKAAIAAAARAA0AAAAKAAMAAAASAAoAAAAKAAEAAAASAAsAAAAKAAIAAAATAAoAAAAKAAEAAAATAAsAAAAKAAIAAAAUAAoAAAAKAAEAAAAUAAsAAAAKAAIAAAASAAwAAAAKAAIAAAASAA0AAAAKAAMAAAATAAwAAAAKAAIAAAATAA0AAAAKAAMAAAAUAAwAAAAKAAIAAAAUAA0AAAAKAAMAAAAOAAsAAAAKAAIAAAAOAAwAAAAKAAIAAAAOAA0AAAAKAAMAAAAPAAsAAAAKAAIAAAAPAAwAAAAKAAIAAAAPAA0AAAAKAAMAAAAQAAsAAAAKAAIAAAAQAAwAAAAKAAIAAAAQAA0AAAAKAAMAAAANAAoAAAAJAAEAAAANAAsAAAAJAAIAAAANAAwAAAAJAAIAAAANAA0AAAAKAAMAAAAeAAsAAAAFAAEAAAAeAAwAAAAFAAIAAAAeAA0AAAAFAAMAAAAQAAoAAAAKAAEAAAAPAAoAAAAKAAEAAAAOAAoAAAAKAAEAAAAMAA0AAAAFAAMAAAAMAAwAAAADAAIAABAMAAsAAAAFAAEAAAALAA0AAAAEAAMAAAALAAwAAAAEAAIAAAALAAsAAAAEAAEAAAAKAA0AAAAEAAMAAAAKAAwAAAAEAAIAAAAKAAsAAAAEAAEAAAAJAA0AAAAEAAMAAAAJAAwAAAAEAAIAAAAJAAsAAAAEAAEAAAAIAA0AAAADAAMAAAAIAAwAAAADAAIAAAAIAAsAAAADAAEAAAAHAA0AAAAIAAMAAAAHAAwAAAAIAAIAAAAHAAsAAAAIAAIAAAAGAA0AAAAHAAMAAAAGAAwAAAAHAAIAAAAGAAsAAAAHAAIAAAAFAA0AAAAHAAMAAAAFAAwAAAAHAAIAAAAFAAsAAAAHAAIAAAAEAA0AAAAHAAMAAAAEAAwAAAAHAAIAAAAEAAsAAAAHAAIAAAADAA0AAAAGAAMAAAADAAwAAAAGAAIAAAADAAsAAAAGAAIAAAAHAAoAAAAIAAEAAAAGAAoAAAAHAAEAAAAFAAoAAAAHAAEAAAAEAAoAAAAHAAEAAAADAAoAAAAGAAEAAAAAAA0AAAALAAMAAAAAAAwAAAALAAIAAAAAAAsAAAALAAIAAAAAAAoAAAALAAEAAAD//w0AAAAKAAMAAAD//wwAAAAKAAIAAAD//wsAAAAKAAIAAAD//woAAAAKAAEAAAD+/w0AAAAKAAMAAAD+/wwAAAAKAAIAAAD+/wsAAAAKAAIAAAD+/woAAAAKAAEAAAD9/w0AAAAKAAMAAAD9/wwAAAAKAAIAAAD9/wsAAAAKAAIAAAD9/woAAAAKAAEAAAD8/w0AAAAKAAMAAAD8/wwAAAAKAAIAAAD8/wsAAAAKAAIAAAD8/woAAAAKAAEAAAD5/w0AAAAKAAMAAAD5/wwAAAAKAAIAAAD5/wsAAAAKAAIAAAD5/woAAAAKAAEAAAD4/w0AAAAKAAMAAAD4/wwAAAAKAAIAAAD4/wsAAAAKAAIAAAD4/woAAAAKAAEAAAD3/w0AAAAKAAMAAAD3/wwAAAAKAAIAAAD3/wsAAAAKAAIAAAD3/woAAAAKAAEAAAD2/w0AAAAKAAMAAAD2/wwAAAAKAAIAAAD2/wsAAAAKAAIAAAD2/woAAAAKAAEAAAD1/w0AAAAKAAMAAAD1/wwAAAAJAAIAAAD1/wsAAAAJAAIAAAD1/woAAAAJAAEAAAD7/w0AAAAKAAMAAAD7/wwAAAAKAAIAAAD7/wsAAAAKAAIAAAD6/w0AAAAKAAMAAAD6/wwAAAAKAAIAAAD6/wsAAAAKAAIAAAACAA0AAAAFAAMAAAACAAwAAAADAAIAABACAAsAAAAFAAEAAAABAA0AAAADAAMAAAABAAwAAAADAAIAAAABAAsAAAADAAEAAAD0/w0AAAAFAAMAAAD0/wwAAAADAAIAABD0/wsAAAAFAAEAAADz/w0AAAAEAAMAAADz/wwAAAAEAAIAAADz/wsAAAAEAAEAAADy/w0AAAAEAAMAAADy/wwAAAAEAAIAAADy/wsAAAAEAAEAAADx/w0AAAAEAAMAAADx/wwAAAAEAAIAAADx/wsAAAAEAAEAAADw/w0AAAAEAAMAAADw/wwAAAAEAAIAAADw/wsAAAAEAAEAAAD7/woAAAAKAAEAAAD6/woAAAAKAAEAAADv/w0AAAAEAAMAAADv/wwAAAAEAAIAAADv/wsAAAAEAAEAAADu/w0AAAAEAAMAAADu/wwAAAAEAAIAAADu/wsAAAAEAAEAAADt/w0AAAAEAAMAAADt/wwAAAAEAAIAAADt/wsAAAAEAAEAAADs/w0AAAADAAMAAADs/wwAAAAFAAIAABDs/wsAAAADAAEAAAA=")
@@ -636,9 +602,11 @@ metadata/_edit_lock_ = true
 [node name="Puerta Exterior" parent="Base" unique_id=642238539 instance=ExtResource("9_8wvbs")]
 position = Vector2(244, 100)
 scale = Vector2(-1, 1)
+DaAlExterior = true
 
 [node name="Puerta Exterior2" parent="Base" unique_id=695260134 instance=ExtResource("9_8wvbs")]
 position = Vector2(-158, 100)
+DaAlExterior = true
 
 [node name="Puerta Exterior4" parent="Base" unique_id=1653997291 instance=ExtResource("9_8wvbs")]
 position = Vector2(-92, 100)
@@ -650,8 +618,16 @@ scale = Vector2(-1, 1)
 [node name="MedidorEnergia" parent="Base" unique_id=246999753 instance=ExtResource("13_6g7lc")]
 position = Vector2(43, 99)
 
+[node name="Raciones" parent="Base" unique_id=1616855972 node_paths=PackedStringArray("hambreManager") instance=ExtResource("13_tamks")]
+position = Vector2(118, 108)
+hambreManager = NodePath("../../GUI/StatsJugador")
+
+[node name="Dispensador" parent="Base" unique_id=719704408 node_paths=PackedStringArray("sedManager") instance=ExtResource("14_tamks")]
+position = Vector2(150, 108)
+sedManager = NodePath("../../GUI/StatsJugador")
+
 [node name="Jugador" parent="." unique_id=1143232438 instance=ExtResource("3_nlrjf")]
-position = Vector2(147, 109)
+position = Vector2(78, 109)
 metadata/_edit_lock_ = true
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=365572645]
@@ -780,7 +756,7 @@ texture_progress = SubResource("AtlasTexture_qy245")
 layout_mode = 2
 texture = SubResource("AtlasTexture_1jqe0")
 
-[node name="Control" parent="GUI" unique_id=692277768 instance=ExtResource("15_fgxf0")]
+[node name="Temperatura" parent="GUI" unique_id=692277768 instance=ExtResource("15_fgxf0")]
 anchors_preset = 4
 anchor_left = 0.0
 anchor_top = 0.5
@@ -793,6 +769,30 @@ offset_bottom = 1.0
 grow_horizontal = 1
 grow_vertical = 2
 metadata/_edit_lock_ = true
+
+[node name="GameOver" parent="." unique_id=1873402519 node_paths=PackedStringArray("oxigeno", "stats") instance=ExtResource("gameover_scene")]
+oxigeno = NodePath("../GUI/Oxigeno")
+stats = NodePath("../GUI/StatsJugador")
+
+[node name="DustStorm" type="CanvasLayer" parent="." unique_id=848118511]
+layer = 9
+visible = false
+
+[node name="ColorRect2" type="ColorRect" parent="DustStorm" unique_id=570560127]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7529412)
+
+[node name="ColorRect" type="ColorRect" parent="DustStorm" unique_id=2068811445]
+material = SubResource("ShaderMaterial_xreih")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Alerts" type="CanvasLayer" parent="." unique_id=1136558536]
 layer = 5
@@ -809,13 +809,5 @@ offset_bottom = 34.0
 grow_horizontal = 0
 grow_vertical = 2
 alignment = 1
-
-[node name="Alerts" parent="Alerts/AlertBox" unique_id=1332602644 instance=ExtResource("27_tamks")]
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(-120.995, 0)
-
-[node name="Alerts2" parent="Alerts/AlertBox" unique_id=587629307 instance=ExtResource("27_tamks")]
-layout_mode = 2
 
 [connection signal="timeout" from="TimerDia" to="." method="Reloj"]

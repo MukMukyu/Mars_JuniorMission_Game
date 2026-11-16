@@ -5,10 +5,21 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public partial class GameManager : Node
 {
+    [Export] private CanvasLayer dustStormLayer;
     [Export] private Timer TimerDia;
 
-    // [----- CONSTANTS -----]
-    public const double MarsHours_PerSecond = .24 / 864;
+    // [----- TIEMPO MARCIANO -----]
+    // Un sol (día solar de Marte) dura 24 h 39 min 35 s terrestres (NASA Mars Facts / RMG).
+    // El juego lo divide en 24 horas marcianas de 60 minutos: un minuto marciano dura ~61.65 s terrestres.
+    public const double SolEnSegundosTerrestres = 88775.244;
+    public const double MinutoMarcianoEnSegundos = SolEnSegundosTerrestres / (24 * 60);
+
+    // Los kWh se miden en horas terrestres: cada tick (1 minuto marciano) son ~0.0171 h.
+    public const double HorasPorMinutoMarciano = MinutoMarcianoEnSegundos / 3600.0;
+
+    // Cuántas veces más rápido que en Marte corre el reloj del juego.
+    // x100: un minuto marciano dura ~0.62 s reales y un sol ~14.8 min reales.
+    [Export(PropertyHint.Range, "1,1000")] public double EscalaTiempo = 100;
 
     // [----- ACTIONS & SIGNALS -----]
     public event Action OnMinutePassed;
@@ -17,7 +28,24 @@ public partial class GameManager : Node
 
     // [----- OTHERS -----]
     public bool IsDustStorm = false;
-    private double elapsedTime = 0.0;
+    private int DustCounter = 0;   // horas marcianas que lleva la tormenta actual
+    private string CurrentAnim;
+
+    // [----- JUGADOR DENTRO / FUERA DE LA BASE -----]
+    // Lo cambian las puertas que dan al exterior (PuertaExterior.DaAlExterior). true = dentro.
+    public event Action<bool> OnJugadorCambiaZona;
+    private bool jugadorEnBase = true;   // la partida empieza dentro de la base
+    public bool JugadorEnBase
+    {
+        get => jugadorEnBase;
+        set
+        {
+            if (value == jugadorEnBase) return;
+
+            jugadorEnBase = value;
+            OnJugadorCambiaZona?.Invoke(value);
+        }
+    }
 
     private double minutoMarciano = 0;
     public double MinutoMarciano
@@ -70,37 +98,133 @@ public partial class GameManager : Node
     }
 
 
+    // [----- TORMENTAS DE POLVO -----]
+    // Más frecuentes cuanto más polvo hay en la zona (DCI de TES, ConstantesGlobales.DCI):
+    //   tormentas por sol = DCI × MultiplicadorTormentas
+    // Con el DCI de Gale (≈0.096) y 20 sale ~1.9 tormentas por sol: la primera llega de media
+    // a las ~12 h marcianas (~8 min reales a x100).
+    [Export] public double MultiplicadorTormentas = 20;
+    [Export] public int HorasDeTormenta = 6;   // horas marcianas que dura (6 h = ~3.7 min reales a x100)
+
+    private Tween tweenAnim { get; set; }
+
+    // Se llama cada hora marciana.
     private void TormentaDeArena()
     {
-        RandomNumberGenerator rng = new RandomNumberGenerator();
-
-        float randomSeed = rng.RandfRange(0f, 1000f);
-
-        if (randomSeed < 1 * ConstantesGlobales.DCI && !IsDustStorm)
+        if (IsDustStorm)
         {
-            GD.Print("Tormenta de Arena");
-            IsDustStorm = true;
-            OnDustStorm?.Invoke();
+            DustCounter += 1;
+            if (DustCounter >= HorasDeTormenta)
+                ApagarTormentaDeArena();
+            return;
         }
+
+        double probabilidadPorHora = ConstantesGlobales.DCI * MultiplicadorTormentas / 24.0;
+        if (GD.Randf() < probabilidadPorHora)
+            EmpezarTormentaDeArena();
+    }
+
+    private void EmpezarTormentaDeArena()
+    {
+        // Empieza transparente y se hace visible con un fundido.
+        foreach (Node hijo in dustStormLayer.GetChildren())
+            if (hijo is CanvasItem capa)
+                capa.Modulate = new Color(capa.Modulate, 0f);
+
+        dustStormLayer.Visible = true;
+        CurrentAnim = "ShowDust";
+        AnimarTormenta(1f, Tween.EaseType.Out);
+
+        DustCounter = 0;
+        IsDustStorm = true;
+        OnDustStorm?.Invoke();
+    }
+    private void ApagarTormentaDeArena()
+    {
+        CurrentAnim = "HideDust";
+        AnimarTormenta(0f, Tween.EaseType.In);
+        IsDustStorm = false;
+    }
+
+    // Un CanvasLayer no tiene "modulate": se anima el de cada hijo (los ColorRect del polvo).
+    private void AnimarTormenta(float alfaFinal, Tween.EaseType ease)
+    {
+        ResetTween();
+        tweenAnim.SetParallel(true).SetEase(ease).SetTrans(Tween.TransitionType.Sine);
+
+        foreach (Node hijo in dustStormLayer.GetChildren())
+            if (hijo is CanvasItem capa)
+                tweenAnim.TweenProperty(capa, "modulate:a", alfaFinal, 1.0);
+    }
+
+    protected void ResetTween()
+    {
+        if (tweenAnim != null)
+            tweenAnim.Kill();
+
+        // Cada tormenta crea un tween nuevo, así que hay que conectarse a cada uno.
+        tweenAnim = CreateTween();
+        tweenAnim.Finished += _OnAnimFinished;
+    }
+    private void _OnAnimFinished()
+    {
+        if (CurrentAnim == "HideDust")
+            dustStormLayer.Visible = false;
+    }
+
+
+
+    public override void _Ready()
+    {
+        // Cada timeout del TimerDia es un minuto marciano, acelerado por EscalaTiempo.
+        TimerDia.Start(MinutoMarcianoEnSegundos / EscalaTiempo);
+    }
+
+    // Teclas de prueba, solo al jugar desde el editor (build de depuración), para probar o grabar
+    // la demo sin esperar al azar:
+    //   F9  = empieza o termina una tormenta de polvo
+    //   F10 = rompe un panel solar que funcione, elegido al azar
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (!OS.IsDebugBuild() || @event is not InputEventKey tecla || !tecla.Pressed || tecla.Echo)
+            return;
+
+        if (tecla.Keycode == Key.F9)
+        {
+            if (IsDustStorm)
+                ApagarTormentaDeArena();
+            else
+                EmpezarTormentaDeArena();
+        }
+        else if (tecla.Keycode == Key.F10)
+        {
+            RomperPanelAlAzar();
+        }
+    }
+
+    private void RomperPanelAlAzar()
+    {
+        var funcionando = new System.Collections.Generic.List<PanelSolar>();
+        foreach (Node nodo in GetTree().GetNodesInGroup(PanelSolar.Grupo))
+            if (nodo is PanelSolar panel && panel.Funciona)
+                funcionando.Add(panel);
+
+        if (funcionando.Count == 0)
+            return;
+
+        funcionando[(int)(GD.Randi() % (uint)funcionando.Count)].Romper();
     }
 
 
 
     private void Reloj()
     {
-        elapsedTime += TimerDia.WaitTime;
         MinutoMarciano += 1;
-
-        //GD.Print(MinutoMarciano);
 
         OnMinutePassed?.Invoke();
 
-        if (elapsedTime >= 144)
-        {
-            elapsedTime = 0.0;
-            //GD.Print(MinutoMarciano);
-
+        // Medianoche (24:00 -> 00:00): ha pasado un sol completo.
+        if (HoraMarciana == 0 && MinutoMarciano == 0)
             OnDayPassed?.Invoke();
-        }
     }
 }

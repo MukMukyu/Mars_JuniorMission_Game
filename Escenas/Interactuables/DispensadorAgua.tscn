@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://dxnc5lxobqw6v"]
+
+[ext_resource type="Script" uid="uid://cxr3v0rrahi6w" path="res://Scripts/Interactuables/DispensadorAgua.cs" id="1_kcrfd"]
+[ext_resource type="Texture2D" uid="uid://dw73sgxajduwc" path="res://Sprites/Objetos_Interactuables/Dispensador_Agua.png" id="1_ow00w"]
+[ext_resource type="PackedScene" uid="uid://cab7hhxu8qstq" path="res://Escenas/GUI/InstructionsControls.tscn" id="2_kcrfd"]
+[ext_resource type="Texture2D" uid="uid://c2cli2ofjnrl4" path="res://Sprites/GUI/DIY_16x16.png" id="3_6rbtm"]
+[ext_resource type="LabelSettings" uid="uid://vomd7i28ws6b" path="res://Recursos/Estilos/LabelInstructions.tres" id="4_883ri"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mwwps"]
+radius = 6.0
+
+[node name="Dispensador" type="Area2D" unique_id=719704408 node_paths=PackedStringArray("waterLeftlabel", "PopOp", "labelAccion")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_kcrfd")
+waterLeftlabel = NodePath("Control/TextureRect/HBoxContainer/Label2")
+PopOp = NodePath("Control/TextureRect")
+labelAccion = NodePath("Interaction")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=434112608]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_mwwps")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=408933306]
+texture = ExtResource("1_ow00w")
+
+[node name="Interaction" parent="." unique_id=82688908 instance=ExtResource("2_kcrfd")]
+offset_left = 12.0
+offset_right = 12.0
+
+[node name="Control" type="Control" parent="." unique_id=945508881]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -22.0
+offset_top = -24.0
+offset_right = 18.0
+offset_bottom = 16.0
+
+[node name="TextureRect" type="NinePatchRect" parent="Control" unique_id=1448772644]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -15.0
+offset_top = 25.0
+offset_right = 20.0
+offset_bottom = 35.0
+texture = ExtResource("3_6rbtm")
+region_rect = Rect2(448, 22, 48, 10)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/TextureRect" unique_id=400751355]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 34.0
+offset_bottom = 10.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/TextureRect/HBoxContainer" unique_id=1925407388]
+layout_mode = 2
+text = "Liters left:"
+label_settings = ExtResource("4_883ri")
+
+[node name="Label2" type="Label" parent="Control/TextureRect/HBoxContainer" unique_id=665262256]
+layout_mode = 2
+text = "10"
+label_settings = ExtResource("4_883ri")
+
+[node name="Label3" type="Label" parent="Control/TextureRect/HBoxContainer" unique_id=1123372235]
+layout_mode = 2
+text = "L"
+label_settings = ExtResource("4_883ri")
+
+[connection signal="body_entered" from="." to="." method="_OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="_OnBodyExited"]
