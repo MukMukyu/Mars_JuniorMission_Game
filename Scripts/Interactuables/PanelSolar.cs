@@ -236,7 +236,7 @@ public partial class PanelSolar : Interactuable
     {
         int multiplicadorPolvo = gameManager.IsDustStorm ? 10 : 1;
         PorcentajeDePolvo = Mathf.Min(100f, PorcentajeDePolvo + (float)(multiplicadorPolvo * ConstantesGlobales.DCI));
-        GD.Print(PorcentajeDePolvo);
+        //GD.Print(PorcentajeDePolvo);
 
         if (PorcentajeDePolvo >= 100 && alertaPolvo == null)
         {

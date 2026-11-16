@@ -12,6 +12,8 @@ public partial class GameOverManager : CanvasLayer
     [Export] private OxigenoManager oxigeno;
     [Export] private StatsJugadorManager stats;
     [Export] private Label motivoLabel;
+    [Export] private Label sobrevividoLabel;
+    [Export] private Label recordLabel;
 
     // [----- LÍMITES -----]
     [Export] public double TemperaturaMinimaC = -10;
@@ -20,6 +22,12 @@ public partial class GameOverManager : CanvasLayer
     [Export] public int SolesMaximosSinComida = 14;
 
     private const int MinutosPorSol = 24 * 60;
+
+    // Mejor tiempo sobrevivido. user:// se conserva al reiniciar y al cerrar el juego
+    // (en Windows: %APPDATA%\Godot\app_userdata\Mars_JuniorMission_Game\record.cfg).
+    private const string RutaRecord = "user://record.cfg";
+    private const string SeccionRecord = "record";
+    private const string ClaveRecord = "minutos_sobrevividos";
 
     private GameManager gameManager;
     private int minutosConFrio = 0;
@@ -87,11 +95,59 @@ public partial class GameOverManager : CanvasLayer
     private void GameOver(string motivo)
     {
         terminado = true;
-        GD.Print("GAME OVER: " + motivo);
+        //GD.Print("GAME OVER: " + motivo);
 
         motivoLabel.Text = motivo;
+        MostrarTiempoYRecord();
         Visible = true;
         GetTree().Paused = true;   // este nodo usa process_mode = Always, así que sus botones siguen funcionando
+    }
+
+
+
+    // [----- TIEMPO SOBREVIVIDO Y RÉCORD -----]
+    // El reto es aguantar el mayor número de soles (días marcianos): se muestra el tiempo de esta
+    // partida y el mejor de todas. Si se supera, se guarda y se avisa con "NEW RECORD!".
+    private void MostrarTiempoYRecord()
+    {
+        int actual = gameManager.MinutosTranscurridos;
+        int record = CargarRecord();
+
+        bool nuevoRecord = actual > record;
+        if (nuevoRecord)
+            GuardarRecord(actual);
+
+        sobrevividoLabel.Text = "You survived " + FormatearTiempo(actual);
+        recordLabel.Text = nuevoRecord ? "NEW RECORD!" : "Best: " + FormatearTiempo(record);
+    }
+
+    // Minutos marcianos -> "2 sols, 5 h".
+    private static string FormatearTiempo(int minutos)
+    {
+        int soles = minutos / MinutosPorSol;
+        int horas = minutos % MinutosPorSol / 60;
+
+        return $"{soles} {(soles == 1 ? "sol" : "sols")}, {horas} h";
+    }
+
+    // Récord guardado en minutos marcianos, o 0 si todavía no hay ninguno.
+    private static int CargarRecord()
+    {
+        var archivo = new ConfigFile();
+        if (archivo.Load(RutaRecord) != Error.Ok)
+            return 0;
+
+        return (int)archivo.GetValue(SeccionRecord, ClaveRecord, 0);
+    }
+
+    private static void GuardarRecord(int minutos)
+    {
+        var archivo = new ConfigFile();
+        archivo.SetValue(SeccionRecord, ClaveRecord, minutos);
+
+        Error error = archivo.Save(RutaRecord);
+        if (error != Error.Ok)
+            GD.PushWarning("No se pudo guardar el récord: " + error);
     }
 
     // El juego sigue en pausa detrás de la pantalla de carga; SceneLoader la quita al cambiar de escena.

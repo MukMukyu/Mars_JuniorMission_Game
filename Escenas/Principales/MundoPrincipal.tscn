@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dd6i220vs8ehx" path="res://Sprites/Objetos_Interactuables/tiles.png" id="1_71v15"]
 [ext_resource type="Script" uid="uid://cukrmbxqqvnfr" path="res://Scripts/GameManager.cs" id="1_j8up3"]
 [ext_resource type="Texture2D" uid="uid://c2epl0c4bqyss" path="res://Sprites/Fondos/Starfield_03-1024x1024.png" id="2_8wvbs"]
+[ext_resource type="AudioStream" uid="uid://cvimhrjyf0che" path="res://Recursos/Musica/MusicBG.ogg" id="2_d4aq3"]
 [ext_resource type="Shader" uid="uid://dkmnqd84xenm5" path="res://Recursos/Shader/Estrellas.gdshader" id="2_ke6h3"]
 [ext_resource type="Texture2D" uid="uid://dp02po1bgcxe8" path="res://Escenas/Jugador/montañas1.png" id="3_316s3"]
 [ext_resource type="PackedScene" uid="uid://dgrn1qd8vsj76" path="res://Escenas/Jugador/pjPrueba.tscn" id="3_nlrjf"]
@@ -27,9 +28,10 @@
 [ext_resource type="Texture2D" uid="uid://ylr7dxml3nga" path="res://Sprites/GUI/Icons_Food.png" id="23_howib"]
 [ext_resource type="Shader" uid="uid://ddwrmtybjlbjt" path="res://Recursos/Shader/DustStorm.gdshader" id="29_5pqa0"]
 [ext_resource type="Texture2D" uid="uid://be1pa6m3plktr" path="res://Recursos/noise.jpg" id="30_plp3r"]
+[ext_resource type="AudioStream" uid="uid://cf2g1hcm1r7xg" path="res://Recursos/Musica/Sandstorm.ogg" id="32_qu3a8"]
 [ext_resource type="Script" uid="uid://t3eqnr85vyra" path="res://Scripts/Principales/CieloMarciano.cs" id="cielo_script"]
 [ext_resource type="Shader" uid="uid://dvpq4itcqo75w" path="res://Recursos/Shader/CieloMarciano.gdshader" id="cielo_shader"]
-[ext_resource type="PackedScene" path="res://Escenas/GUI/GameOver.tscn" id="gameover_scene"]
+[ext_resource type="PackedScene" uid="uid://sx5y7kil3rxh" path="res://Escenas/GUI/GameOver.tscn" id="gameover_scene"]
 
 [sub_resource type="Gradient" id="Gradient_i7b8a"]
 offsets = PackedFloat32Array(0, 0.19345239, 0.36607143, 0.6041667, 0.8839286, 1)
@@ -483,11 +485,17 @@ shader_parameter/smoke_color = Color(0.8, 0.504, 0.504, 1)
 shader_parameter/distortion_speed = 5.0
 shader_parameter/density = 1.0
 
-[node name="Gamemanager" type="Node2D" unique_id=1323146543 node_paths=PackedStringArray("dustStormLayer", "TimerDia")]
+[node name="Gamemanager" type="Node2D" unique_id=1323146543 node_paths=PackedStringArray("audioSandStorm", "dustStormLayer", "TimerDia")]
 texture_filter = 3
 script = ExtResource("1_j8up3")
+audioSandStorm = NodePath("DustStorm/DustStorm")
 dustStormLayer = NodePath("DustStorm")
 TimerDia = NodePath("TimerDia")
+
+[node name="BGMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1430662205]
+stream = ExtResource("2_d4aq3")
+volume_db = -10.0
+autoplay = true
 
 [node name="TimerDia" type="Timer" parent="." unique_id=745108372]
 autostart = true
@@ -771,6 +779,7 @@ grow_vertical = 2
 metadata/_edit_lock_ = true
 
 [node name="GameOver" parent="." unique_id=1873402519 node_paths=PackedStringArray("oxigeno", "stats") instance=ExtResource("gameover_scene")]
+layer = 10
 oxigeno = NodePath("../GUI/Oxigeno")
 stats = NodePath("../GUI/StatsJugador")
 
@@ -793,6 +802,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="DustStorm" type="AudioStreamPlayer" parent="DustStorm" unique_id=1412028755]
+stream = ExtResource("32_qu3a8")
 
 [node name="Alerts" type="CanvasLayer" parent="." unique_id=1136558536]
 layer = 5

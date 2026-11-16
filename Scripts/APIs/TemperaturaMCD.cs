@@ -48,7 +48,7 @@ public partial class TemperaturaMCD : Node
             using var archivo = FileAccess.Open(RutaCache, FileAccess.ModeFlags.Read);
             if (Cargar(archivo.GetAsText()))
             {
-                GD.Print("MCD: datos cargados desde " + RutaCache);
+                //GD.Print("MCD: datos cargados desde " + RutaCache);
                 Actualizar();
                 return;
             }
@@ -140,7 +140,7 @@ public partial class TemperaturaMCD : Node
         using (var archivo = FileAccess.Open(RutaCache, FileAccess.ModeFlags.Write))
             archivo?.StoreString(texto);
 
-        GD.Print($"MCD: temperaturas descargadas (Lat {Latitud}, Lon {Longitud}, Ls {Ls}) y guardadas en {RutaCache}");
+        //GD.Print($"MCD: temperaturas descargadas (Lat {Latitud}, Lon {Longitud}, Ls {Ls}) y guardadas en {RutaCache}");
         Actualizar();
     }
 

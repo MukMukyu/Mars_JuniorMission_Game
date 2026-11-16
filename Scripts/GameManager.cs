@@ -5,6 +5,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public partial class GameManager : Node
 {
+    [Export] private AudioStreamPlayer audioSandStorm;
     [Export] private CanvasLayer dustStormLayer;
     [Export] private Timer TimerDia;
 
@@ -30,6 +31,11 @@ public partial class GameManager : Node
     public bool IsDustStorm = false;
     private int DustCounter = 0;   // horas marcianas que lleva la tormenta actual
     private string CurrentAnim;
+
+    // [----- TIEMPO SOBREVIVIDO -----]
+    // Minutos marcianos desde que empezó la partida (empieza en el sol 1 a las 00:00).
+    // Lo muestra el Game Over junto con el récord: cuanto más aguante el jugador, mejor.
+    public int MinutosTranscurridos { get; private set; } = 0;
 
     // [----- JUGADOR DENTRO / FUERA DE LA BASE -----]
     // Lo cambian las puertas que dan al exterior (PuertaExterior.DaAlExterior). true = dentro.
@@ -106,6 +112,10 @@ public partial class GameManager : Node
     [Export] public double MultiplicadorTormentas = 20;
     [Export] public int HorasDeTormenta = 6;   // horas marcianas que dura (6 h = ~3.7 min reales a x100)
 
+    // Sonido: arranca casi en silencio, sube hasta el volumen puesto en el Inspector y al acabar baja y se para.
+    private const float VolumenSilencioDb = -40f;
+    private float volumenTormentaDb = 0f;
+
     private Tween tweenAnim { get; set; }
 
     // Se llama cada hora marciana.
@@ -132,6 +142,13 @@ public partial class GameManager : Node
                 capa.Modulate = new Color(capa.Modulate, 0f);
 
         dustStormLayer.Visible = true;
+
+        if (audioSandStorm != null)
+        {
+            audioSandStorm.VolumeDb = VolumenSilencioDb;
+            audioSandStorm.Play();
+        }
+
         CurrentAnim = "ShowDust";
         AnimarTormenta(1f, Tween.EaseType.Out);
 
@@ -155,6 +172,10 @@ public partial class GameManager : Node
         foreach (Node hijo in dustStormLayer.GetChildren())
             if (hijo is CanvasItem capa)
                 tweenAnim.TweenProperty(capa, "modulate:a", alfaFinal, 1.0);
+
+        // El sonido sube o baja a la vez que la imagen.
+        if (audioSandStorm != null)
+            tweenAnim.TweenProperty(audioSandStorm, "volume_db", alfaFinal > 0f ? volumenTormentaDb : VolumenSilencioDb, 1.0);
     }
 
     protected void ResetTween()
@@ -169,7 +190,10 @@ public partial class GameManager : Node
     private void _OnAnimFinished()
     {
         if (CurrentAnim == "HideDust")
+        {
             dustStormLayer.Visible = false;
+            audioSandStorm?.Stop();   // tras el fundido ya está en silencio
+        }
     }
 
 
@@ -178,6 +202,19 @@ public partial class GameManager : Node
     {
         // Cada timeout del TimerDia es un minuto marciano, acelerado por EscalaTiempo.
         TimerDia.Start(MinutoMarcianoEnSegundos / EscalaTiempo);
+
+        // Sonido de la tormenta: el asignado en audioSandStorm o, si no hay ninguno,
+        // el AudioStreamPlayer llamado "DustStorm" dentro de la capa DustStorm.
+        audioSandStorm ??= dustStormLayer.GetNodeOrNull<AudioStreamPlayer>("DustStorm");
+        if (audioSandStorm != null)
+        {
+            volumenTormentaDb = audioSandStorm.VolumeDb;   // el volumen elegido en el Inspector
+            audioSandStorm.Stop();                         // por si tiene Autoplay: solo suena durante la tormenta
+        }
+        else
+        {
+            GD.PushWarning("GameManager: no se encontró el sonido de la tormenta (asigna audioSandStorm o llama \"DustStorm\" al AudioStreamPlayer de la capa DustStorm).");
+        }
     }
 
     // Teclas de prueba, solo al jugar desde el editor (build de depuración), para probar o grabar
@@ -220,6 +257,7 @@ public partial class GameManager : Node
     private void Reloj()
     {
         MinutoMarciano += 1;
+        MinutosTranscurridos += 1;   // antes de avisar, para que el Game Over lea el tiempo ya actualizado
 
         OnMinutePassed?.Invoke();
 

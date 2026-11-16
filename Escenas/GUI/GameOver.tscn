@@ -1,20 +1,21 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://sx5y7kil3rxh"]
 
-[ext_resource type="Script" path="res://Scripts/GUI/GameOverManager.cs" id="1_govr"]
+[ext_resource type="Script" uid="uid://csxhrlqkbpsnt" path="res://Scripts/GUI/GameOverManager.cs" id="1_govr"]
 [ext_resource type="Texture2D" uid="uid://c2cli2ofjnrl4" path="res://Sprites/GUI/DIY_16x16.png" id="2_govr"]
 [ext_resource type="LabelSettings" uid="uid://k25xkkoviykg" path="res://Recursos/Estilos/LabelHora2.tres" id="3_govr"]
 [ext_resource type="LabelSettings" uid="uid://01lgrer57gf0" path="res://Recursos/Estilos/LabelTemp.tres" id="4_govr"]
 [ext_resource type="FontFile" uid="uid://t2bpr1avyle0" path="res://Recursos/Fonts/HomeVideo-Bold.ttf" id="5_govr"]
 
-[node name="GameOver" type="CanvasLayer" unique_id=1873402519 node_paths=PackedStringArray("motivoLabel")]
+[node name="GameOver" type="CanvasLayer" unique_id=1873402519 node_paths=PackedStringArray("motivoLabel", "sobrevividoLabel", "recordLabel")]
 process_mode = 3
 layer = 20
 visible = false
 script = ExtResource("1_govr")
 motivoLabel = NodePath("Fondo/Panel/VBoxContainer/Motivo")
+sobrevividoLabel = NodePath("Fondo/Panel/VBoxContainer/Sobrevivido")
+recordLabel = NodePath("Fondo/Panel/VBoxContainer/Record")
 
 [node name="Fondo" type="ColorRect" parent="." unique_id=1365820947]
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -30,10 +31,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -90.0
-offset_top = -50.0
-offset_right = 90.0
-offset_bottom = 50.0
+offset_left = -110.0
+offset_top = -66.0
+offset_right = 110.0
+offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_govr")
@@ -64,6 +65,20 @@ layout_mode = 2
 text = "GAME OVER"
 label_settings = ExtResource("3_govr")
 horizontal_alignment = 1
+
+[node name="Sobrevivido" type="Label" parent="Fondo/Panel/VBoxContainer" unique_id=1462093857]
+layout_mode = 2
+text = "You survived 0 sols, 0 h"
+label_settings = ExtResource("3_govr")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Record" type="Label" parent="Fondo/Panel/VBoxContainer" unique_id=1092736458]
+layout_mode = 2
+text = "Best: 0 sols, 0 h"
+label_settings = ExtResource("4_govr")
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Motivo" type="Label" parent="Fondo/Panel/VBoxContainer" unique_id=1127649380]
 layout_mode = 2
