@@ -14,8 +14,8 @@ Here you'll have to manage your little resources to survive the sols and the har
 - And don't run out of energy!...
 
 ## Credits
-Pixel Keys by joshuajennerdev | https://joshuajennerdev.itch.io/pixel-keys-x16
-1-bit Pixel Icons by Nikoichu is marked CC0 1.0
-Basic Pixel Health bar and Scroll bar by BDragon1727 | https://bdragon1727.itch.io/basic-pixel-health-bar-and-scroll-bar
-Pocket Gui by Vryell | https://vryell.itch.io/pocket-gui
-"A few jumps away" by Arthur Vyncke
+- Pixel Keys by joshuajennerdev | https://joshuajennerdev.itch.io/pixel-keys-x16
+- 1-bit Pixel Icons by Nikoichu is marked CC0 1.0
+- Basic Pixel Health bar and Scroll bar by BDragon1727 | https://bdragon1727.itch.io/basic-pixel-health-bar-and-scroll-bar
+- Pocket Gui by Vryell | https://vryell.itch.io/pocket-gui
+- "A few jumps away" by Arthur Vyncke
